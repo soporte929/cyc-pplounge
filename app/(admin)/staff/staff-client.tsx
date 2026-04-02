@@ -62,14 +62,11 @@ export function StaffClient({
       {/* Table */}
       <div className="bg-[#1a1a1a] rounded-2xl overflow-hidden border border-white/[0.03]">
         <div className="overflow-x-auto">
-          <table className="w-full">
+          <table className="w-full min-w-[480px]">
             <thead>
               <tr className="bg-[#1c1b1b]/50">
                 <th className="px-6 py-4 text-left text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2]">
                   Miembro
-                </th>
-                <th className="px-6 py-4 text-left text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2]">
-                  Email
                 </th>
                 <th className="px-6 py-4 text-center text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2]">
                   Rol
@@ -77,7 +74,7 @@ export function StaffClient({
                 <th className="px-6 py-4 text-center text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2]">
                   Estado
                 </th>
-                <th className="px-6 py-4 text-left text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2]">
+                <th className="hidden md:table-cell px-6 py-4 text-left text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2]">
                   Alta
                 </th>
                 <th className="px-6 py-4 text-right text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2]">
@@ -89,7 +86,7 @@ export function StaffClient({
               {staff.length === 0 ? (
                 <tr>
                   <td
-                    colSpan={6}
+                    colSpan={5}
                     className="px-6 py-16 text-center text-[#d0c5b2] text-sm"
                   >
                     No hay miembros del staff.
@@ -103,7 +100,7 @@ export function StaffClient({
                       key={member.id}
                       className="hover:bg-white/[0.02] transition-colors"
                     >
-                      {/* Name + avatar */}
+                      {/* Name + avatar + email stacked */}
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
                           <div className="w-8 h-8 rounded bg-[#353534] flex items-center justify-center flex-shrink-0">
@@ -111,24 +108,22 @@ export function StaffClient({
                               {getInitials(member.name)}
                             </span>
                           </div>
-                          <div>
-                            <span className="text-sm font-semibold text-[#e5e2e1]">
-                              {member.name}
-                            </span>
-                            {isSelf && (
-                              <span className="ml-2 text-[10px] text-[#e6c364]/60 font-bold uppercase tracking-widest">
-                                (you)
+                          <div className="min-w-0">
+                            <div className="flex items-center gap-1.5">
+                              <span className="text-sm font-semibold text-[#e5e2e1] truncate">
+                                {member.name}
                               </span>
-                            )}
+                              {isSelf && (
+                                <span className="text-[10px] text-[#e6c364]/60 font-bold uppercase tracking-widest flex-shrink-0">
+                                  (you)
+                                </span>
+                              )}
+                            </div>
+                            <span className="block text-xs text-[#d0c5b2] truncate">
+                              {member.email}
+                            </span>
                           </div>
                         </div>
-                      </td>
-
-                      {/* Email */}
-                      <td className="px-6 py-4">
-                        <span className="text-sm text-[#d0c5b2]">
-                          {member.email}
-                        </span>
                       </td>
 
                       {/* Role */}
@@ -169,8 +164,8 @@ export function StaffClient({
                         )}
                       </td>
 
-                      {/* Joined date */}
-                      <td className="px-6 py-4">
+                      {/* Joined date — hidden on mobile */}
+                      <td className="hidden md:table-cell px-6 py-4">
                         <span className="text-sm text-[#d0c5b2]">
                           {formatDate(member.created_at)}
                         </span>

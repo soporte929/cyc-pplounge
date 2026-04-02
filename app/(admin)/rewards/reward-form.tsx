@@ -38,8 +38,8 @@ export function RewardForm({ initial, onSubmit, onClose }: Props) {
         onClick={onClose}
       />
 
-      {/* Drawer */}
-      <div className="relative z-10 max-w-lg w-full h-full bg-[#0e0e0e] border-l border-[#e6c364]/10 flex flex-col">
+      {/* Drawer — full-screen on mobile, side panel on lg+ */}
+      <div className="relative z-10 w-full lg:max-w-lg h-full bg-[#0e0e0e] lg:border-l border-[#e6c364]/10 flex flex-col">
         {/* Header */}
         <div className="px-8 py-6 border-b border-[#4d4637]/10">
           <h2 className="text-xl font-headline font-extrabold uppercase tracking-tighter text-[#e5e2e1]">
@@ -122,8 +122,8 @@ export function RewardForm({ initial, onSubmit, onClose }: Props) {
           </div>
         </form>
 
-        {/* Actions */}
-        <div className="px-8 py-6 border-t border-[#4d4637]/10">
+        {/* Actions — sticky at bottom with padding for mobile bottom nav */}
+        <div className="px-8 py-6 pb-safe border-t border-[#4d4637]/10 pb-10 lg:pb-6">
           <div className="grid grid-cols-2 gap-4">
             <button
               type="button"

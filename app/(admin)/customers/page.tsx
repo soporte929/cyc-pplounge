@@ -111,22 +111,19 @@ export default async function CustomersPage({
       {/* Table */}
       <div className="bg-[#1a1a1a] rounded-2xl overflow-hidden border border-white/[0.03] animate-fade-in-up">
         <div className="overflow-x-auto">
-          <table className="w-full">
+          <table className="w-full min-w-[480px]">
             <thead>
               <tr className="bg-[#1c1b1b]/50">
                 <th className="px-6 py-4 text-left text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2]">
                   Cliente
                 </th>
-                <th className="px-6 py-4 text-left text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2]">
-                  Email
-                </th>
                 <th className="px-6 py-4 text-center text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2]">
                   Sellos
                 </th>
-                <th className="px-6 py-4 text-center text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2]">
+                <th className="hidden md:table-cell px-6 py-4 text-center text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2]">
                   Ciclos
                 </th>
-                <th className="px-6 py-4 text-left text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2]">
+                <th className="hidden md:table-cell px-6 py-4 text-left text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2]">
                   Última actividad
                 </th>
                 <th className="px-6 py-4 text-center text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2]">
@@ -141,7 +138,7 @@ export default async function CustomersPage({
               {!cards || cards.length === 0 ? (
                 <tr>
                   <td
-                    colSpan={7}
+                    colSpan={6}
                     className="px-6 py-16 text-center text-[#d0c5b2] text-sm"
                   >
                     No hay clientes.
@@ -162,7 +159,7 @@ export default async function CustomersPage({
                       key={card.id}
                       className="hover:bg-white/[0.02] transition-colors"
                     >
-                      {/* Name + avatar */}
+                      {/* Name + avatar + email stacked */}
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
                           <div className="w-8 h-8 rounded bg-[#353534] flex items-center justify-center flex-shrink-0">
@@ -170,17 +167,15 @@ export default async function CustomersPage({
                               {getInitials(customer.name)}
                             </span>
                           </div>
-                          <span className="text-sm font-semibold text-[#e5e2e1] whitespace-nowrap">
-                            {customer.name}
-                          </span>
+                          <div className="min-w-0">
+                            <span className="block text-sm font-semibold text-[#e5e2e1] truncate">
+                              {customer.name}
+                            </span>
+                            <span className="block text-xs text-[#d0c5b2] truncate">
+                              {customer.email}
+                            </span>
+                          </div>
                         </div>
-                      </td>
-
-                      {/* Email */}
-                      <td className="px-6 py-4">
-                        <span className="text-sm text-[#d0c5b2]">
-                          {customer.email}
-                        </span>
                       </td>
 
                       {/* Stamps */}
@@ -190,15 +185,15 @@ export default async function CustomersPage({
                         </span>
                       </td>
 
-                      {/* Cycles */}
-                      <td className="px-6 py-4 text-center">
+                      {/* Cycles — hidden on mobile */}
+                      <td className="hidden md:table-cell px-6 py-4 text-center">
                         <span className="text-sm text-[#e5e2e1]">
                           {card.cycles_completed}
                         </span>
                       </td>
 
-                      {/* Last stamp */}
-                      <td className="px-6 py-4">
+                      {/* Last stamp — hidden on mobile */}
+                      <td className="hidden md:table-cell px-6 py-4">
                         <span className="text-sm text-[#d0c5b2]">
                           {formatDate(card.updated_at)}
                         </span>
