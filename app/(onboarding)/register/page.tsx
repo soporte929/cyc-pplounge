@@ -29,7 +29,7 @@ export default function RegisterPage() {
     startTransition(async () => {
       const res = await registerCustomer(formData);
       if (res.success) {
-        router.push(`/card/${res.cardId}`);
+        router.push(`/welcome/${res.cardId}`);
       } else {
         setResult(res as ActionResult);
       }

@@ -1,5 +1,6 @@
 import { createAnonClient } from "@/lib/supabase/server";
 import { LoyaltyCard } from "@/components/loyalty-card";
+import { getStampHistory } from "./actions";
 
 interface CardPageProps {
   params: Promise<{ cardId: string }>;
@@ -84,6 +85,8 @@ export default async function CardPage({ params }: CardPageProps) {
     (reward as { name?: string } | null)?.name ?? null;
   const rewardAvailable = stampsCurrent >= stampsRequired;
 
+  const stampHistory = await getStampHistory(card.id);
+
   return (
     <div className="min-h-screen bg-[#131313] text-[#e5e2e1]">
       <Header />
@@ -108,10 +111,61 @@ export default async function CardPage({ params }: CardPageProps) {
             rewardAvailable={rewardAvailable}
             cardId={card.id}
           />
+
+          {/* Stamp history */}
+          <div className="mt-8 animate-fade-in-up [animation-delay:300ms] opacity-0 [animation-fill-mode:forwards]">
+            <p className="text-sm uppercase tracking-widest text-[#d0c5b2] mb-3">
+              Historial de sellos
+            </p>
+            <div className="bg-[#1c1b1b] rounded-xl overflow-hidden">
+              {stampHistory.length === 0 ? (
+                <p className="px-4 py-5 text-[#99907e] text-sm text-center">
+                  Aún no tienes sellos. ¡Muestra tu QR en tu próxima visita!
+                </p>
+              ) : (
+                <ul>
+                  {stampHistory.map((stamp, i) => {
+                    const date = new Date(stamp.created_at);
+                    return (
+                      <li
+                        key={stamp.id}
+                        className={`flex items-center gap-3 px-4 py-3 ${
+                          i < stampHistory.length - 1
+                            ? "border-b border-white/5"
+                            : ""
+                        }`}
+                      >
+                        <span className="w-2 h-2 rounded-full bg-[#e6c364] shrink-0" />
+                        <span className="flex-1 text-sm text-[#e5e2e1]">
+                          Sello añadido
+                        </span>
+                        <span className="text-xs text-[#99907e]">
+                          {timeAgo(date)}
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            </div>
+          </div>
         </div>
       </main>
     </div>
   );
+}
+
+function timeAgo(date: Date): string {
+  const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
+  if (seconds < 60) return "hace un momento";
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return `hace ${minutes} min`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `hace ${hours}h`;
+  const days = Math.floor(hours / 24);
+  if (days === 1) return "ayer";
+  if (days < 7) return `hace ${days} días`;
+  return date.toLocaleDateString("es-ES", { day: "numeric", month: "short" });
 }
 
 function Header() {

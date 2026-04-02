@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState, useTransition } from "react";
+import { useCallback, useEffect, useState, useTransition } from "react";
 import Link from "next/link";
 import QRScanner from "@/components/qr-scanner";
 import { StaffNav } from "@/components/staff-nav";
@@ -143,6 +143,23 @@ function StatusConfirming({
         />
       </div>
 
+      {/* Near-reward warning banner */}
+      {card.stampsCurrent >= card.stampsRequired - 2 && (
+        <div className="w-full flex items-center gap-3 bg-[#e6c364]/10 border border-[#e6c364]/30 rounded-xl px-4 py-3 animate-bounce-in">
+          <span
+            className="material-symbols-outlined text-xl text-[#e6c364] shrink-0"
+            aria-hidden="true"
+          >
+            trending_up
+          </span>
+          <p className="text-sm font-bold text-[#e6c364] text-left">
+            {card.stampsCurrent === card.stampsRequired - 1
+              ? "¡Este sello completa su reward!"
+              : "¡Casi tiene su reward!"}
+          </p>
+        </div>
+      )}
+
       {/* Add stamp CTA */}
       <button
         onClick={onConfirm}
@@ -168,6 +185,12 @@ function StatusSuccess({
   cardId: string;
   onNext: () => void;
 }) {
+  useEffect(() => {
+    if (rewardUnlocked && typeof navigator !== "undefined" && navigator.vibrate) {
+      navigator.vibrate([100, 50, 100]);
+    }
+  }, [rewardUnlocked]);
+
   return (
     <div className="flex flex-col items-center gap-5 text-center animate-scale-in">
       {/* Checkmark */}
