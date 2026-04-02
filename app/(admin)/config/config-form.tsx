@@ -35,7 +35,7 @@ export function ConfigForm({ initial, saveConfig }: Props) {
       {/* Business Name */}
       <div className="space-y-2">
         <label className="text-[10px] uppercase tracking-widest text-[#d0c5b2] font-bold">
-          Business Name
+          Nombre del negocio
         </label>
         <input
           name="business_name"
@@ -50,7 +50,7 @@ export function ConfigForm({ initial, saveConfig }: Props) {
       {/* Logo URL */}
       <div className="space-y-2">
         <label className="text-[10px] uppercase tracking-widest text-[#d0c5b2] font-bold">
-          Logo URL
+          URL del logo
         </label>
         <input
           name="logo_url"
@@ -64,7 +64,7 @@ export function ConfigForm({ initial, saveConfig }: Props) {
       {/* Primary Color */}
       <div className="space-y-2">
         <label className="text-[10px] uppercase tracking-widest text-[#d0c5b2] font-bold">
-          Primary Color
+          Color principal
         </label>
         <div className="flex items-center gap-3">
           {/* Text input */}
@@ -93,41 +93,41 @@ export function ConfigForm({ initial, saveConfig }: Props) {
           </div>
         </div>
         <p className="text-[10px] text-[#d0c5b2]/60 tracking-wide">
-          Used for stamps, badges, and accent elements on customer cards.
+          Se usa en sellos, insignias y elementos destacados de las tarjetas de cliente.
         </p>
       </div>
 
       {/* Welcome Message */}
       <div className="space-y-2">
         <label className="text-[10px] uppercase tracking-widest text-[#d0c5b2] font-bold">
-          Welcome Message
+          Mensaje de bienvenida
         </label>
         <textarea
           name="welcome_message"
           rows={3}
           defaultValue={initial.welcome_message ?? ""}
-          placeholder="Welcome to Phi Phi Lounge! Collect stamps and earn exclusive rewards."
+          placeholder="¡Bienvenido a Phi Phi Lounge! Acumula sellos y gana recompensas exclusivas."
           className="w-full bg-[#1c1b1b] border-0 rounded-xl px-5 py-4 text-sm text-[#e5e2e1] placeholder:text-[#d0c5b2]/40 focus:outline-none focus:ring-1 focus:ring-[#e6c364]/40 focus:bg-[#353534] transition-all resize-none"
         />
         <p className="text-[10px] text-[#d0c5b2]/60 tracking-wide">
-          Shown on the customer loyalty card screen after registration.
+          Se muestra en la tarjeta de fidelidad del cliente tras el registro.
         </p>
       </div>
 
       {/* Pass Strip Message */}
       <div className="space-y-2">
         <label className="text-[10px] uppercase tracking-widest text-[#d0c5b2] font-bold">
-          Pass Strip Message
+          Mensaje de la tira del pase
         </label>
         <textarea
           name="pass_strip_message"
           rows={2}
           defaultValue={initial.pass_strip_message ?? ""}
-          placeholder="Show this pass to earn your stamp."
+          placeholder="Muestra este pase para conseguir tu sello."
           className="w-full bg-[#1c1b1b] border-0 rounded-xl px-5 py-4 text-sm text-[#e5e2e1] placeholder:text-[#d0c5b2]/40 focus:outline-none focus:ring-1 focus:ring-[#e6c364]/40 focus:bg-[#353534] transition-all resize-none"
         />
         <p className="text-[10px] text-[#d0c5b2]/60 tracking-wide">
-          Short text displayed on the Apple Wallet / Google Wallet strip.
+          Texto corto que aparece en la tira del Apple Wallet / Google Wallet.
         </p>
       </div>
 
@@ -138,7 +138,7 @@ export function ConfigForm({ initial, saveConfig }: Props) {
           disabled={isPending}
           className="w-full py-5 rounded-xl bg-[#e6c364] text-[#3d2e00] font-headline font-bold uppercase tracking-widest text-sm hover:bg-[#c9a84c] transition-colors disabled:opacity-60"
         >
-          {isPending ? "Saving..." : saved ? "Saved!" : "Save Settings"}
+          {isPending ? "Guardando..." : saved ? "¡Guardado!" : "Guardar ajustes"}
         </button>
       </div>
     </form>

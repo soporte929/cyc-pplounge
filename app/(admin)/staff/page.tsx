@@ -98,10 +98,10 @@ export default async function StaffPage() {
       <div className="flex items-end justify-between">
         <div>
           <h1 className="text-4xl font-headline font-extrabold uppercase tracking-tighter text-[#e5e2e1]">
-            Staff Management
+            Gestión Staff
           </h1>
           <p className="mt-1 text-sm text-[#d0c5b2]">
-            {staff?.length ?? 0} team member{staff?.length !== 1 ? "s" : ""}
+            {staff?.length ?? 0} miembro{staff?.length !== 1 ? "s" : ""} del equipo
           </p>
         </div>
       </div>

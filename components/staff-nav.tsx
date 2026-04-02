@@ -4,9 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const NAV_ITEMS = [
-  { href: "/scan", icon: "qr_code_scanner", label: "Scan" },
+  { href: "/scan", icon: "qr_code_scanner", label: "Escanear" },
   { href: "/rewards", icon: "stars", label: "Rewards" },
-  { href: "/dashboard", icon: "dashboard", label: "Dashboard" },
+  { href: "/dashboard", icon: "dashboard", label: "Panel" },
   { href: "/staff", icon: "badge", label: "Staff" },
 ];
 

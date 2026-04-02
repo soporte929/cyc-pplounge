@@ -50,10 +50,10 @@ export default function RedeemPage({ params }: PageProps) {
           {/* Page title */}
           <div className="mb-8">
             <p className="text-[10px] uppercase tracking-widest text-[#d0c5b2] mb-1">
-              Staff Panel
+              Panel Staff
             </p>
             <h1 className="font-headline font-extrabold text-4xl uppercase tracking-tighter text-[#e5e2e1]">
-              REDEEM REWARD
+              CANJEAR REWARD
             </h1>
           </div>
 
@@ -128,12 +128,12 @@ function Header() {
       <Link
         href="/scan"
         className="flex items-center gap-1.5 text-[#d0c5b2] hover:text-[#e5e2e1] transition-colors"
-        aria-label="Back to scanner"
+        aria-label="Volver al escáner"
       >
         <span className="material-symbols-outlined text-xl" aria-hidden="true">
           arrow_back
         </span>
-        <span className="text-[10px] uppercase tracking-widest">Scan</span>
+        <span className="text-[10px] uppercase tracking-widest">Escanear</span>
       </Link>
       <span className="font-headline font-black text-[#e6c364] uppercase tracking-widest text-sm absolute left-1/2 -translate-x-1/2">
         PHI PHI LOUNGE
@@ -142,7 +142,7 @@ function Header() {
         <span className="material-symbols-outlined text-base" aria-hidden="true">
           redeem
         </span>
-        <span className="text-[10px] uppercase tracking-widest">Redeem</span>
+        <span className="text-[10px] uppercase tracking-widest">Canjear</span>
       </div>
     </header>
   );

@@ -57,7 +57,7 @@ export default function LoginPage() {
           {/* Headline */}
           <div className="mb-10">
             <h1 className="font-headline font-extrabold text-4xl tracking-tighter text-[#e5e2e1] mb-2 uppercase">
-              STAFF PORTAL
+              PORTAL STAFF
             </h1>
             <p className="font-label text-xs uppercase tracking-[0.2em] text-[#e6c364] font-bold">
               Acceso personal autorizado

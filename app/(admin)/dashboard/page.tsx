@@ -6,22 +6,22 @@ export default async function DashboardPage() {
   const mainCards = [
     {
       icon: "person_add",
-      label: "Total Customers",
+      label: "Clientes totales",
       value: metrics.totalCustomers.toLocaleString(),
     },
     {
       icon: "confirmation_number",
-      label: "Stamps Today",
+      label: "Sellos hoy",
       value: metrics.stampsToday.toLocaleString(),
     },
     {
       icon: "redeem",
-      label: "Rewards Redeemed",
+      label: "Rewards canjeados",
       value: metrics.rewardsRedeemed.toLocaleString(),
     },
     {
       icon: "analytics",
-      label: "Active Monthly",
+      label: "Activos este mes",
       value: metrics.activeCustomers.toLocaleString(),
     },
   ];
@@ -29,17 +29,17 @@ export default async function DashboardPage() {
   const secondaryCards = [
     {
       icon: "conversion_path",
-      label: "Conversion Rate",
+      label: "Tasa de conversión",
       value: `${metrics.conversionRate}%`,
     },
     {
       icon: "schedule",
-      label: "Avg Cycle Time",
+      label: "Tiempo medio de ciclo",
       value: `${metrics.avgCycleTime}d`,
     },
     {
       icon: "person_off",
-      label: "Inactive Customers",
+      label: "Clientes inactivos",
       value: metrics.inactiveCustomers.toLocaleString(),
     },
   ];
@@ -50,10 +50,10 @@ export default async function DashboardPage() {
         {/* Header */}
         <div>
           <h1 className="text-4xl font-headline font-extrabold uppercase tracking-tighter text-[#e5e2e1]">
-            Overview
+            Resumen
           </h1>
           <p className="mt-1 text-sm text-[#d0c5b2]">
-            Real-time performance metrics for Phi Phi Lounge
+            Métricas en tiempo real de Phi Phi Lounge
           </p>
         </div>
 

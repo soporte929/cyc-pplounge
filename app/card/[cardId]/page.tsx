@@ -93,7 +93,7 @@ export default async function CardPage({ params }: CardPageProps) {
           {/* Welcome header */}
           <div className="mb-6">
             <p className="text-[10px] uppercase tracking-widest text-on-surface-variant mb-1">
-              Loyalty Member
+              Miembro
             </p>
             <h1 className="font-headline font-extrabold text-3xl uppercase tracking-tighter leading-none">
               {firstName}

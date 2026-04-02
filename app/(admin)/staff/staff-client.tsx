@@ -30,7 +30,7 @@ function getInitials(name: string) {
 }
 
 function formatDate(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString("en-US", {
+  return new Date(dateStr).toLocaleDateString("es-ES", {
     month: "short",
     day: "numeric",
     year: "numeric",
@@ -56,7 +56,7 @@ export function StaffClient({
         <span className="material-symbols-outlined text-base leading-none">
           person_add
         </span>
-        Invite Staff
+        Crear Staff
       </button>
 
       {/* Table */}
@@ -66,22 +66,22 @@ export function StaffClient({
             <thead>
               <tr className="bg-[#1c1b1b]/50">
                 <th className="px-6 py-4 text-left text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2]">
-                  Member
+                  Miembro
                 </th>
                 <th className="px-6 py-4 text-left text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2]">
                   Email
                 </th>
                 <th className="px-6 py-4 text-center text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2]">
-                  Role
+                  Rol
                 </th>
                 <th className="px-6 py-4 text-center text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2]">
-                  Status
+                  Estado
                 </th>
                 <th className="px-6 py-4 text-left text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2]">
-                  Joined
+                  Alta
                 </th>
                 <th className="px-6 py-4 text-right text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2]">
-                  Actions
+                  Acciones
                 </th>
               </tr>
             </thead>
@@ -92,7 +92,7 @@ export function StaffClient({
                     colSpan={6}
                     className="px-6 py-16 text-center text-[#d0c5b2] text-sm"
                   >
-                    No staff members found.
+                    No hay miembros del staff.
                   </td>
                 </tr>
               ) : (
@@ -160,11 +160,11 @@ export function StaffClient({
                       <td className="px-6 py-4 text-center">
                         {member.is_active ? (
                           <span className="inline-flex items-center px-2 py-1 rounded-md bg-green-500/10 text-green-400 text-[10px] font-bold uppercase tracking-widest">
-                            Active
+                            Activo
                           </span>
                         ) : (
                           <span className="inline-flex items-center px-2 py-1 rounded-md bg-[#353534] text-[#d0c5b2] text-[10px] font-bold uppercase tracking-widest">
-                            Inactive
+                            Inactivo
                           </span>
                         )}
                       </td>
@@ -194,7 +194,7 @@ export function StaffClient({
                                   : "text-[#e6c364] hover:bg-[#e6c364]/10"
                               }`}
                             >
-                              {member.is_active ? "Deactivate" : "Activate"}
+                              {member.is_active ? "Desactivar" : "Activar"}
                             </button>
                           </form>
                         ) : (

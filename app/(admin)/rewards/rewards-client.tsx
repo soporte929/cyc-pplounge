@@ -45,7 +45,7 @@ export function RewardsClient({
         <span className="material-symbols-outlined text-base leading-none">
           add
         </span>
-        New Reward
+        Nuevo Reward
       </button>
 
       {/* Bento grid */}
@@ -76,7 +76,7 @@ export function RewardsClient({
               />
               <button
                 type="submit"
-                title={reward.is_active ? "Deactivate" : "Activate"}
+                title={reward.is_active ? "Desactivar" : "Activar"}
                 className="flex items-center"
               >
                 <div
@@ -107,7 +107,7 @@ export function RewardsClient({
                 confirmation_number
               </span>
               <span className="text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2]">
-                {reward.stamps_required} stamps
+                {reward.stamps_required} sellos
               </span>
             </div>
 
@@ -134,7 +134,7 @@ export function RewardsClient({
             </span>
           </div>
           <span className="text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2] group-hover:text-[#e6c364] transition-colors">
-            Create New Reward
+            Crear nuevo reward
           </span>
         </button>
       </div>

@@ -66,12 +66,12 @@ export default function RegisterPage() {
 
             {/* Headline */}
             <h1 className="font-headline font-extrabold text-4xl tracking-tighter uppercase text-center leading-none mb-3">
-              JOIN THE<br />INNER CIRCLE
+              ÚNETE AL<br />CLUB
             </h1>
 
             {/* Subline */}
             <p className="text-[#e6c364] text-xs uppercase tracking-widest">
-              10 shishas → 1 free
+              10 shishas → 1 gratis
             </p>
           </div>
 
@@ -83,13 +83,13 @@ export default function RegisterPage() {
                 htmlFor="name"
                 className="block text-[10px] uppercase tracking-widest text-[#d0c5b2]"
               >
-                Full name
+                Nombre
               </label>
               <input
                 id="name"
                 name="name"
                 type="text"
-                placeholder="E.g. Julian Thorne"
+                placeholder="Ej. Julian Thorne"
                 autoComplete="name"
                 className="w-full bg-[#1c1b1b] border-0 px-5 py-4 rounded-xl focus:outline-none focus:ring-1 focus:ring-[#e6c364]/40 focus:bg-[#353534] text-sm text-[#e5e2e1] placeholder:text-[#99907e] transition-colors"
               />
@@ -106,7 +106,7 @@ export default function RegisterPage() {
                 htmlFor="email"
                 className="block text-[10px] uppercase tracking-widest text-[#d0c5b2]"
               >
-                Email address
+                Email
               </label>
               <input
                 id="email"
@@ -143,8 +143,8 @@ export default function RegisterPage() {
                 )}
               </button>
               <p className="text-[11px] text-[#d0c5b2] leading-relaxed">
-                I'd like to receive exclusive offers and updates from Phi Phi Lounge.{" "}
-                <span className="text-[#99907e]">(Optional)</span>
+                Me gustaría recibir ofertas exclusivas y novedades de Phi Phi Lounge.{" "}
+                <span className="text-[#99907e]">(Opcional)</span>
               </p>
             </div>
 
@@ -152,14 +152,14 @@ export default function RegisterPage() {
             {result && !result.success && result.error === "email_exists" && (
               <div className="bg-[#ffb4ab]/10 border border-[#ffb4ab]/20 rounded-xl px-5 py-4">
                 <p className="text-[#ffb4ab] text-sm">
-                  This email is already registered. Visit the lounge to retrieve your card.
+                  Este email ya está registrado. Visita el local para recuperar tu tarjeta.
                 </p>
               </div>
             )}
             {result && !result.success && result.error === "db_error" && (
               <div className="bg-[#ffb4ab]/10 border border-[#ffb4ab]/20 rounded-xl px-5 py-4">
                 <p className="text-[#ffb4ab] text-sm">
-                  Something went wrong. Please try again in a moment.
+                  Algo ha ido mal. Por favor, inténtalo de nuevo.
                 </p>
               </div>
             )}
@@ -170,7 +170,7 @@ export default function RegisterPage() {
               disabled={isPending}
               className="w-full bg-[#e6c364] text-[#3d2e00] font-headline font-bold uppercase tracking-widest py-5 rounded-md transition-opacity disabled:opacity-60 mt-2"
             >
-              {isPending ? "Just a moment…" : "Get my loyalty card"}
+              {isPending ? "Un momento…" : "Obtener mi tarjeta"}
             </button>
           </form>
 
@@ -180,7 +180,7 @@ export default function RegisterPage() {
               verified_user
             </span>
             <p className="text-[10px] uppercase tracking-widest text-[#99907e]">
-              Your data is private and never shared
+              Tus datos son privados y nunca se comparten
             </p>
           </div>
         </div>

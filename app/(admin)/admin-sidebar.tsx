@@ -5,10 +5,10 @@ import { usePathname } from "next/navigation";
 
 const NAV_ITEMS = [
   { href: "/dashboard", icon: "dashboard", label: "Dashboard" },
-  { href: "/customers", icon: "group", label: "Customers" },
+  { href: "/customers", icon: "group", label: "Clientes" },
   { href: "/rewards", icon: "stars", label: "Rewards" },
   { href: "/staff", icon: "badge", label: "Staff" },
-  { href: "/config", icon: "settings", label: "Settings" },
+  { href: "/config", icon: "settings", label: "Ajustes" },
 ];
 
 export function AdminSidebar({ staffName }: { staffName: string }) {
@@ -22,7 +22,7 @@ export function AdminSidebar({ staffName }: { staffName: string }) {
           PHI PHI LOUNGE
         </span>
         <p className="text-[10px] text-[#d0c5b2] tracking-[0.2em] mt-1 font-bold uppercase opacity-60">
-          Admin Portal
+          Panel Admin
         </p>
       </div>
 

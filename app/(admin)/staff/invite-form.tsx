@@ -34,7 +34,7 @@ export function InviteStaffForm({ onSubmit, onClose }: Props) {
         {/* Header */}
         <div className="px-8 py-6 border-b border-[#4d4637]/10">
           <h2 className="text-xl font-headline font-extrabold uppercase tracking-tighter text-[#e5e2e1]">
-            Invite Staff
+            Crear Staff
           </h2>
           <p className="mt-1 text-xs text-[#d0c5b2]">
             Crea una cuenta de acceso para el nuevo miembro del equipo.
@@ -50,7 +50,7 @@ export function InviteStaffForm({ onSubmit, onClose }: Props) {
           {/* Name */}
           <div className="space-y-2">
             <label className="text-[10px] uppercase tracking-widest text-[#d0c5b2] font-bold">
-              Full Name
+              Nombre completo
             </label>
             <input
               name="name"
@@ -64,7 +64,7 @@ export function InviteStaffForm({ onSubmit, onClose }: Props) {
           {/* Email */}
           <div className="space-y-2">
             <label className="text-[10px] uppercase tracking-widest text-[#d0c5b2] font-bold">
-              Email Address
+              Email
             </label>
             <input
               name="email"
@@ -93,7 +93,7 @@ export function InviteStaffForm({ onSubmit, onClose }: Props) {
           {/* Role */}
           <div className="space-y-2">
             <label className="text-[10px] uppercase tracking-widest text-[#d0c5b2] font-bold">
-              Role
+              Rol
             </label>
             <select
               name="role"
@@ -115,7 +115,7 @@ export function InviteStaffForm({ onSubmit, onClose }: Props) {
               disabled={isPending}
               className="py-4 rounded-xl bg-[#1c1b1b] text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2] hover:bg-[#353534] transition-colors"
             >
-              Discard
+              Descartar
             </button>
             <button
               type="button"

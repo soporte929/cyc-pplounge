@@ -52,7 +52,7 @@ function getInitials(name: string) {
 
 function formatDate(dateStr: string | null) {
   if (!dateStr) return "—";
-  return new Date(dateStr).toLocaleDateString("en-US", {
+  return new Date(dateStr).toLocaleDateString("es-ES", {
     month: "short",
     day: "numeric",
     year: "numeric",
@@ -100,10 +100,10 @@ export default async function CustomersPage({
       <div className="flex items-end justify-between">
         <div>
           <h1 className="text-4xl font-headline font-extrabold uppercase tracking-tighter text-[#e5e2e1]">
-            Customers
+            Clientes
           </h1>
           <p className="mt-1 text-sm text-[#d0c5b2]">
-            {total.toLocaleString()} total registered
+            {total.toLocaleString()} registrados en total
           </p>
         </div>
       </div>
@@ -115,25 +115,25 @@ export default async function CustomersPage({
             <thead>
               <tr className="bg-[#1c1b1b]/50">
                 <th className="px-6 py-4 text-left text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2]">
-                  Customer
+                  Cliente
                 </th>
                 <th className="px-6 py-4 text-left text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2]">
                   Email
                 </th>
                 <th className="px-6 py-4 text-center text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2]">
-                  Stamps
+                  Sellos
                 </th>
                 <th className="px-6 py-4 text-center text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2]">
-                  Cycles
+                  Ciclos
                 </th>
                 <th className="px-6 py-4 text-left text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2]">
-                  Last Activity
+                  Última actividad
                 </th>
                 <th className="px-6 py-4 text-center text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2]">
-                  Status
+                  Estado
                 </th>
                 <th className="px-6 py-4 text-right text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2]">
-                  Actions
+                  Acciones
                 </th>
               </tr>
             </thead>
@@ -144,7 +144,7 @@ export default async function CustomersPage({
                     colSpan={7}
                     className="px-6 py-16 text-center text-[#d0c5b2] text-sm"
                   >
-                    No customers found.
+                    No hay clientes.
                   </td>
                 </tr>
               ) : (
@@ -208,11 +208,11 @@ export default async function CustomersPage({
                       <td className="px-6 py-4 text-center">
                         {card.is_active ? (
                           <span className="inline-flex items-center px-2 py-1 rounded-md bg-green-500/10 text-green-400 text-[10px] font-bold uppercase tracking-widest">
-                            Active
+                            Activo
                           </span>
                         ) : (
                           <span className="inline-flex items-center px-2 py-1 rounded-md bg-[#353534] text-[#d0c5b2] text-[10px] font-bold uppercase tracking-widest">
-                            Inactive
+                            Inactivo
                           </span>
                         )}
                       </td>
@@ -234,7 +234,7 @@ export default async function CustomersPage({
                                 : "text-[#e6c364] hover:bg-[#e6c364]/10"
                             }`}
                           >
-                            {card.is_active ? "Deactivate" : "Activate"}
+                            {card.is_active ? "Desactivar" : "Activar"}
                           </button>
                         </form>
                       </td>
@@ -250,7 +250,7 @@ export default async function CustomersPage({
         {totalPages > 1 && (
           <div className="px-6 py-4 border-t border-[#4d4637]/10 flex items-center justify-between">
             <p className="text-[10px] text-[#d0c5b2] uppercase tracking-widest">
-              Page {page} of {totalPages}
+              Página {page} de {totalPages}
             </p>
             <div className="flex items-center gap-2">
               {page > 1 && (
@@ -258,7 +258,7 @@ export default async function CustomersPage({
                   href={`/customers?page=${page - 1}`}
                   className="px-3 py-1.5 rounded-lg bg-[#1c1b1b] text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2] hover:text-[#e6c364] hover:bg-[#e6c364]/10 transition-colors"
                 >
-                  Previous
+                  Anterior
                 </Link>
               )}
               {page < totalPages && (
@@ -266,7 +266,7 @@ export default async function CustomersPage({
                   href={`/customers?page=${page + 1}`}
                   className="px-3 py-1.5 rounded-lg bg-[#1c1b1b] text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2] hover:text-[#e6c364] hover:bg-[#e6c364]/10 transition-colors"
                 >
-                  Next
+                  Siguiente
                 </Link>
               )}
             </div>

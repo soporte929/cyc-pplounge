@@ -31,24 +31,24 @@ function formatAddStampError(
   switch (error) {
     case "cooldown":
       return minutesRemaining
-        ? `Stamp already added recently. Try again in ${minutesRemaining} minute${minutesRemaining === 1 ? "" : "s"}.`
-        : "Stamp already added recently. Please wait before adding another.";
+        ? `Sello añadido recientemente. Inténtalo de nuevo en ${minutesRemaining} minuto${minutesRemaining === 1 ? "" : "s"}.`
+        : "Sello añadido recientemente. Espera antes de añadir otro.";
     case "card_not_found":
-      return "Loyalty card not found. The QR may be invalid.";
+      return "Tarjeta de fidelidad no encontrada. El QR puede ser inválido.";
     case "card_inactive":
-      return "This loyalty card is inactive.";
+      return "Esta tarjeta de fidelidad está inactiva.";
     case "not_authenticated":
-      return "Session expired. Please log in again.";
+      return "Sesión expirada. Por favor inicia sesión de nuevo.";
     case "staff_not_found":
-      return "Staff account not found. Contact your administrator.";
+      return "Cuenta de staff no encontrada. Contacta con el administrador.";
     case "staff_inactive":
-      return "Your staff account is inactive. Contact your administrator.";
+      return "Tu cuenta de staff está inactiva. Contacta con el administrador.";
     case "validation_error":
-      return "Invalid card ID format.";
+      return "Formato de ID de tarjeta inválido.";
     case "db_error":
-      return "A database error occurred. Please try again.";
+      return "Error de base de datos. Por favor, inténtalo de nuevo.";
     default:
-      return "An unexpected error occurred. Please try again.";
+      return "Error inesperado. Por favor, inténtalo de nuevo.";
   }
 }
 
@@ -88,11 +88,10 @@ function StatusIdle() {
         info
       </span>
       <p className="font-headline font-bold uppercase tracking-tighter text-[#e5e2e1]">
-        Scan customer QR
+        Escanea el QR del cliente
       </p>
       <p className="text-sm text-[#d0c5b2] leading-relaxed">
-        Point the camera at the customer&rsquo;s loyalty card QR code to add a
-        stamp.
+        Apunta la cámara al QR de la tarjeta de fidelidad del cliente para añadir un sello.
       </p>
     </div>
   );
@@ -126,7 +125,7 @@ function StatusConfirming({
       {/* Customer name */}
       <div>
         <p className="text-[10px] uppercase tracking-widest text-[#d0c5b2] mb-1">
-          Customer
+          Cliente
         </p>
         <p className="font-headline font-extrabold uppercase tracking-tighter text-[#e5e2e1] text-xl">
           {card.customerName}
@@ -136,7 +135,7 @@ function StatusConfirming({
       {/* Stamp count */}
       <div>
         <p className="text-[10px] uppercase tracking-widest text-[#d0c5b2] mb-3">
-          {card.stampsCurrent} / {card.stampsRequired} stamps
+          {card.stampsCurrent} / {card.stampsRequired} sellos
         </p>
         <StampDots
           current={card.stampsCurrent}
@@ -150,7 +149,7 @@ function StatusConfirming({
         disabled={isPending}
         className="w-full bg-[#e6c364] text-[#3d2e00] font-headline font-bold uppercase tracking-widest py-4 rounded-md transition-opacity disabled:opacity-60 hover:opacity-90 active:scale-[0.98]"
       >
-        {isPending ? "Adding stamp…" : "Add stamp"}
+        {isPending ? "Añadiendo sello…" : "Añadir sello"}
       </button>
     </div>
   );
@@ -184,10 +183,10 @@ function StatusSuccess({
 
       <div>
         <p className="font-headline font-extrabold uppercase tracking-tighter text-[#e5e2e1] text-xl">
-          Stamp Added
+          Sello añadido
         </p>
         <p className="text-sm text-[#d0c5b2] mt-1">
-          {stampsCurrent} stamp{stampsCurrent === 1 ? "" : "s"} total
+          {stampsCurrent} sello{stampsCurrent === 1 ? "" : "s"} en total
         </p>
       </div>
 
@@ -207,7 +206,7 @@ function StatusSuccess({
             </span>
             <div className="text-left">
               <p className="text-[10px] uppercase tracking-widest text-[#e6c364]">
-                Reward Unlocked!
+                ¡Reward desbloqueado!
               </p>
               {rewardName && (
                 <p className="text-sm font-bold text-[#e5e2e1]">{rewardName}</p>
@@ -228,7 +227,7 @@ function StatusSuccess({
         onClick={onNext}
         className="w-full border border-[#99907e]/30 text-[#d0c5b2] font-headline font-bold uppercase tracking-widest py-4 rounded-md hover:bg-white/5 active:scale-[0.98] transition-all"
       >
-        Next Customer
+        Siguiente cliente
       </button>
     </div>
   );
@@ -256,7 +255,7 @@ function StatusError({
         onClick={onRetry}
         className="w-full border border-[#99907e]/30 text-[#d0c5b2] font-headline font-bold uppercase tracking-widest py-4 rounded-md hover:bg-white/5 active:scale-[0.98] transition-all"
       >
-        Try Again
+        Reintentar
       </button>
     </div>
   );
@@ -279,13 +278,13 @@ export default function ScanPage() {
       if (!card) {
         setState({
           phase: "error",
-          message: "Loyalty card not found. The QR may be invalid.",
+          message: "Tarjeta de fidelidad no encontrada. El QR puede ser inválido.",
         });
         return;
       }
 
       if (!card.isActive) {
-        setState({ phase: "error", message: "This loyalty card is inactive." });
+        setState({ phase: "error", message: "Esta tarjeta de fidelidad está inactiva." });
         return;
       }
 
@@ -337,7 +336,7 @@ export default function ScanPage() {
       <header className="fixed top-0 inset-x-0 z-50 h-16 bg-[#0e0e0e] border-b border-[#e6c364]/10 shadow-[0_4px_40px_rgba(230,195,100,0.04)] flex items-center px-5">
         <div className="flex flex-col">
           <span className="text-[10px] uppercase tracking-widest text-[#d0c5b2] font-medium">
-            Staff
+            Personal
           </span>
           <span className="font-headline font-black uppercase tracking-widest text-[#e6c364] leading-none">
             PHI PHI LOUNGE
@@ -348,7 +347,7 @@ export default function ScanPage() {
             qr_code_scanner
           </span>
           <p className="text-[10px] uppercase tracking-widest">
-            Scan
+            Escanear
           </p>
         </div>
       </header>

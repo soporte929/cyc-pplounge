@@ -72,10 +72,10 @@ export default async function ConfigPage() {
       {/* Header */}
       <div>
         <h1 className="text-4xl font-headline font-extrabold uppercase tracking-tighter text-[#e5e2e1]">
-          Settings
+          Ajustes
         </h1>
         <p className="mt-1 text-sm text-[#d0c5b2]">
-          Configure your loyalty program branding and messaging.
+          Configura la identidad y los mensajes de tu programa de fidelidad.
         </p>
       </div>
 
@@ -90,10 +90,10 @@ export default async function ConfigPage() {
           </div>
           <div>
             <h2 className="text-sm font-headline font-bold uppercase tracking-tight text-[#e5e2e1]">
-              Business Configuration
+              Configuración del negocio
             </h2>
             <p className="text-[10px] text-[#d0c5b2] tracking-widest uppercase">
-              Singleton record — changes apply globally
+              Registro único — los cambios se aplican globalmente
             </p>
           </div>
         </div>

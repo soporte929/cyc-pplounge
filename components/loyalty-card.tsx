@@ -64,8 +64,8 @@ export function LoyaltyCard({
         {/* Progress label */}
         <p className="text-[11px] uppercase tracking-widest text-on-surface-variant">
           {stampsToNext > 0
-            ? `Collect ${stampsToNext} more stamp${stampsToNext === 1 ? "" : "s"} to unlock your next reward`
-            : "You've reached your reward!"}
+            ? `Consigue ${stampsToNext} sello${stampsToNext === 1 ? "" : "s"} más para desbloquear tu próximo reward`
+            : "¡Has alcanzado tu reward!"}
         </p>
       </div>
 
@@ -80,10 +80,10 @@ export function LoyaltyCard({
           </span>
           <div>
             <p className="text-[10px] uppercase tracking-widest text-on-primary-container/70 mb-0.5">
-              Your reward is ready
+              Tu reward está listo
             </p>
             <p className="font-headline font-bold uppercase tracking-tight text-on-primary-container text-lg leading-tight">
-              YOUR FREE {rewardName} IS READY
+              TU {rewardName} GRATIS ESTÁ LISTO
             </p>
           </div>
         </div>
@@ -95,7 +95,7 @@ export function LoyaltyCard({
           <QRCodeDisplay value={cardId} size={144} />
         </div>
         <p className="text-[10px] uppercase tracking-widest text-on-surface-variant">
-          Scan at counter
+          Muestra en el mostrador
         </p>
       </div>
     </div>

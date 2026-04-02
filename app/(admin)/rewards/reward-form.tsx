@@ -42,12 +42,12 @@ export function RewardForm({ initial, onSubmit, onClose }: Props) {
         {/* Header */}
         <div className="px-8 py-6 border-b border-[#4d4637]/10">
           <h2 className="text-xl font-headline font-extrabold uppercase tracking-tighter text-[#e5e2e1]">
-            {initial?.id ? "Edit Reward" : "New Reward"}
+            {initial?.id ? "Editar Reward" : "Nuevo Reward"}
           </h2>
           <p className="mt-1 text-xs text-[#d0c5b2]">
             {initial?.id
-              ? "Update reward details below."
-              : "Create a new loyalty reward."}
+              ? "Actualiza los detalles del reward."
+              : "Crea un nuevo reward de fidelidad."}
           </p>
         </div>
 
@@ -64,14 +64,14 @@ export function RewardForm({ initial, onSubmit, onClose }: Props) {
           {/* Name */}
           <div className="space-y-2">
             <label className="text-[10px] uppercase tracking-widest text-[#d0c5b2] font-bold">
-              Reward Name
+              Nombre del reward
             </label>
             <input
               name="name"
               type="text"
               defaultValue={initial?.name ?? ""}
               required
-              placeholder="e.g. Free Coffee"
+              placeholder="Ej. Shisha gratis"
               className="w-full bg-[#1c1b1b] border-0 rounded-xl px-5 py-4 text-sm text-[#e5e2e1] placeholder:text-[#d0c5b2]/40 focus:outline-none focus:ring-1 focus:ring-[#e6c364]/40 focus:bg-[#353534] transition-all"
             />
           </div>
@@ -79,13 +79,13 @@ export function RewardForm({ initial, onSubmit, onClose }: Props) {
           {/* Description */}
           <div className="space-y-2">
             <label className="text-[10px] uppercase tracking-widest text-[#d0c5b2] font-bold">
-              Description
+              Descripción
             </label>
             <textarea
               name="description"
               rows={3}
               defaultValue={initial?.description ?? ""}
-              placeholder="Brief description of the reward..."
+              placeholder="Breve descripción del reward..."
               className="w-full bg-[#1c1b1b] border-0 rounded-xl px-5 py-4 text-sm text-[#e5e2e1] placeholder:text-[#d0c5b2]/40 focus:outline-none focus:ring-1 focus:ring-[#e6c364]/40 focus:bg-[#353534] transition-all resize-none"
             />
           </div>
@@ -93,7 +93,7 @@ export function RewardForm({ initial, onSubmit, onClose }: Props) {
           {/* Stamps required */}
           <div className="space-y-2">
             <label className="text-[10px] uppercase tracking-widest text-[#d0c5b2] font-bold">
-              Stamps Required
+              Sellos requeridos
             </label>
             <input
               name="stamps_required"
@@ -116,7 +116,7 @@ export function RewardForm({ initial, onSubmit, onClose }: Props) {
               disabled={isPending}
               className="py-4 rounded-xl bg-[#1c1b1b] text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2] hover:bg-[#353534] transition-colors"
             >
-              Discard
+              Descartar
             </button>
             <button
               type="submit"
@@ -125,7 +125,7 @@ export function RewardForm({ initial, onSubmit, onClose }: Props) {
               disabled={isPending}
               className="py-4 rounded-xl bg-[#e6c364] text-[#3d2e00] text-[10px] font-bold uppercase tracking-widest hover:bg-[#c9a84c] transition-colors disabled:opacity-60"
             >
-              {isPending ? "Saving..." : "Save"}
+              {isPending ? "Guardando..." : "Guardar"}
             </button>
           </div>
         </div>
