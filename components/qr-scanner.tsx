@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface QRScannerProps {
   onScan: (uuid: string) => void;
@@ -16,53 +16,101 @@ function extractUUID(text: string): string | null {
 
 export default function QRScanner({ onScan, onError }: QRScannerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const scannerRef = useRef<import("qr-scanner").default | null>(null);
+  const streamRef = useRef<MediaStream | null>(null);
+  const scanningRef = useRef(true);
   const onScanRef = useRef(onScan);
   const onErrorRef = useRef(onError);
   const [cameraError, setCameraError] = useState<{ message: string; icon: string } | null>(null);
-  const hasScanned = useRef(false);
+  const [ready, setReady] = useState(false);
 
-  // Keep refs up to date without re-triggering effect
   onScanRef.current = onScan;
   onErrorRef.current = onError;
 
   useEffect(() => {
     let cancelled = false;
+    let animFrameId: number;
 
     async function init() {
-      if (!videoRef.current) return;
-
       try {
-        const QrScanner = (await import("qr-scanner")).default;
-        QrScanner.WORKER_PATH = "/qr-scanner-worker.min.js";
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: "environment" },
+        });
 
-        if (cancelled) return;
+        if (cancelled) {
+          stream.getTracks().forEach((t) => t.stop());
+          return;
+        }
 
-        const scanner = new QrScanner(
-          videoRef.current,
-          (result) => {
-            if (hasScanned.current) return;
-            const text = result.data;
-            const uuid = extractUUID(text);
-            if (uuid) {
-              hasScanned.current = true;
-              onScanRef.current(uuid);
+        streamRef.current = stream;
+
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+          await videoRef.current.play();
+          setReady(true);
+        }
+
+        // Try BarcodeDetector (native, no library needed)
+        if ("BarcodeDetector" in window) {
+          const detector = new (window as unknown as { BarcodeDetector: new (opts: { formats: string[] }) => { detect: (source: HTMLVideoElement) => Promise<{ rawValue: string }[]> } }).BarcodeDetector({
+            formats: ["qr_code"],
+          });
+
+          async function scanFrame() {
+            if (cancelled || !videoRef.current || !scanningRef.current) return;
+
+            try {
+              const codes = await detector.detect(videoRef.current);
+              if (codes.length > 0 && scanningRef.current) {
+                const text = codes[0].rawValue;
+                const uuid = extractUUID(text);
+                if (uuid) {
+                  scanningRef.current = false;
+                  onScanRef.current(uuid);
+                  return;
+                }
+              }
+            } catch {
+              // Frame decode error — ignore and retry
             }
-          },
-          {
-            returnDetailedScanResult: true,
-            highlightScanRegion: false,
-            highlightCodeOutline: false,
-          }
-        );
 
-        scannerRef.current = scanner;
-        await scanner.start();
+            animFrameId = requestAnimationFrame(scanFrame);
+          }
+
+          scanFrame();
+        } else {
+          // Fallback: use qr-scanner library
+          try {
+            const QrScanner = (await import("qr-scanner")).default;
+            if (cancelled || !videoRef.current) return;
+
+            const scanner = new QrScanner(
+              videoRef.current,
+              (result) => {
+                if (!scanningRef.current) return;
+                const uuid = extractUUID(result.data);
+                if (uuid) {
+                  scanningRef.current = false;
+                  onScanRef.current(uuid);
+                }
+              },
+              {
+                returnDetailedScanResult: true,
+                highlightScanRegion: false,
+                highlightCodeOutline: false,
+              }
+            );
+            await scanner.start();
+          } catch {
+            setCameraError({
+              message: "No se pudo iniciar el escáner QR.",
+              icon: "qr_code",
+            });
+          }
+        }
       } catch (err) {
         if (cancelled) return;
 
-        const message =
-          err instanceof Error ? err.message : "Camera error occurred.";
+        const message = err instanceof Error ? err.message : "";
 
         const isPermission =
           message.toLowerCase().includes("permission") ||
@@ -81,7 +129,6 @@ export default function QRScanner({ onScan, onError }: QRScannerProps) {
             : "No se pudo iniciar la cámara. Asegúrate de que ninguna otra app la esté usando.";
 
         const icon = isInsecure ? "lock_open" : "no_photography";
-
         setCameraError({ message: userMessage, icon });
         onErrorRef.current?.(userMessage);
       }
@@ -91,28 +138,22 @@ export default function QRScanner({ onScan, onError }: QRScannerProps) {
 
     return () => {
       cancelled = true;
-      scannerRef.current?.destroy();
-      scannerRef.current = null;
+      scanningRef.current = true;
+      if (animFrameId) cancelAnimationFrame(animFrameId);
+      streamRef.current?.getTracks().forEach((t) => t.stop());
+      streamRef.current = null;
     };
-  }, []); // No dependencies — refs handle callback updates
-
-  // Reset scan lock when parent resets (e.g. "Next Customer")
-  const resetScan = useCallback(() => {
-    hasScanned.current = false;
   }, []);
 
-  // Expose reset via effect when onScan changes (parent re-mounted)
+  // Reset scanning when onScan changes (parent reset)
   useEffect(() => {
-    hasScanned.current = false;
+    scanningRef.current = true;
   }, [onScan]);
 
   if (cameraError) {
     return (
       <div className="relative w-full aspect-square bg-[#1c1b1b] rounded-[2rem] overflow-hidden flex flex-col items-center justify-center gap-4 p-8">
-        <span
-          className="material-symbols-outlined text-5xl text-[#e6c364]/60"
-          aria-hidden="true"
-        >
+        <span className="material-symbols-outlined text-5xl text-[#e6c364]/60" aria-hidden="true">
           {cameraError.icon}
         </span>
         <p className="text-center text-sm text-[#d0c5b2] leading-relaxed">
@@ -135,8 +176,7 @@ export default function QRScanner({ onScan, onError }: QRScannerProps) {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background:
-            "radial-gradient(ellipse at center, transparent 40%, rgba(13,13,13,0.7) 100%)",
+          background: "radial-gradient(ellipse at center, transparent 40%, rgba(13,13,13,0.7) 100%)",
         }}
       />
 
@@ -155,10 +195,17 @@ export default function QRScanner({ onScan, onError }: QRScannerProps) {
         <span className="material-symbols-outlined text-3xl text-[#e6c364]/80" aria-hidden="true">
           qr_code_scanner
         </span>
-        <div className="w-24 h-0.5 rounded-full overflow-hidden bg-[#e6c364]/20">
-          <div className="h-full bg-[#e6c364] rounded-full"
-            style={{ animation: "scan-pulse 1.8s ease-in-out infinite" }} />
-        </div>
+        {!ready && (
+          <p className="text-[10px] uppercase tracking-widest text-[#d0c5b2]">
+            Iniciando cámara...
+          </p>
+        )}
+        {ready && (
+          <div className="w-24 h-0.5 rounded-full overflow-hidden bg-[#e6c364]/20">
+            <div className="h-full bg-[#e6c364] rounded-full"
+              style={{ animation: "scan-pulse 1.8s ease-in-out infinite" }} />
+          </div>
+        )}
       </div>
 
       <style>{`
