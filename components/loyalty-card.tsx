@@ -57,15 +57,7 @@ export function LoyaltyCard({
             />
           ))}
 
-        {/* Premium badge watermark */}
-        <div className="absolute top-4 right-4 opacity-10 pointer-events-none">
-          <span
-            className="material-symbols-outlined text-primary text-6xl leading-none"
-            style={{ fontVariationSettings: "'FILL' 1" }}
-          >
-            local_bar
-          </span>
-        </div>
+        {/* Premium badge watermark — removed, user found it distracting */}
 
         {/* Stamp grid */}
         <div className="mb-6">
