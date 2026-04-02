@@ -160,6 +160,7 @@ export function RewardsClient({
       {/* Edit form drawer */}
       {editingReward && (
         <RewardForm
+          key={editingReward.id}
           initial={{
             id: editingReward.id,
             name: editingReward.name,
