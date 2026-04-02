@@ -34,6 +34,7 @@ export default function QRScanner({ onScan, onError }: QRScannerProps) {
 
       try {
         const QrScanner = (await import("qr-scanner")).default;
+        QrScanner.WORKER_PATH = "/qr-scanner-worker.min.js";
 
         if (cancelled) return;
 
