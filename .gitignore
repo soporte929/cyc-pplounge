@@ -38,3 +38,4 @@ next-env.d.ts
 supabase/.temp/
 yggdrasil-cli/
 .DS_Store
+yggdrasil-cli/
