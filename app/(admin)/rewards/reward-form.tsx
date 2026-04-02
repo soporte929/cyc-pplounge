@@ -31,7 +31,7 @@ export function RewardForm({ initial, onSubmit, onClose }: Props) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-end">
+    <div className="fixed inset-0 z-[70] flex flex-col lg:flex-row lg:justify-end">
       {/* Overlay */}
       <div
         className="absolute inset-0 bg-black/80 backdrop-blur-sm"
@@ -39,24 +39,29 @@ export function RewardForm({ initial, onSubmit, onClose }: Props) {
       />
 
       {/* Drawer — full-screen on mobile, side panel on lg+ */}
-      <div className="relative z-10 w-full lg:max-w-lg h-full bg-[#0e0e0e] lg:border-l border-[#e6c364]/10 flex flex-col">
+      <div className="relative z-10 w-full lg:max-w-lg h-full bg-[#0e0e0e] lg:border-l border-[#e6c364]/10 flex flex-col overflow-hidden">
         {/* Header */}
-        <div className="px-8 py-6 border-b border-[#4d4637]/10">
-          <h2 className="text-xl font-headline font-extrabold uppercase tracking-tighter text-[#e5e2e1]">
-            {initial?.id ? "Editar Reward" : "Nuevo Reward"}
-          </h2>
-          <p className="mt-1 text-xs text-[#d0c5b2]">
-            {initial?.id
-              ? "Actualiza los detalles del reward."
-              : "Crea un nuevo reward de fidelidad."}
-          </p>
+        <div className="flex-shrink-0 px-6 py-4 border-b border-[#4d4637]/10 flex items-center justify-between">
+          <div>
+            <h2 className="text-lg font-headline font-extrabold uppercase tracking-tighter text-[#e5e2e1]">
+              {initial?.id ? "Editar Reward" : "Nuevo Reward"}
+            </h2>
+            <p className="mt-0.5 text-xs text-[#d0c5b2]">
+              {initial?.id
+                ? "Actualiza los detalles del reward."
+                : "Crea un nuevo reward de fidelidad."}
+            </p>
+          </div>
+          <button onClick={onClose} className="p-2 rounded-full hover:bg-white/10 transition-colors">
+            <span className="material-symbols-outlined text-[#d0c5b2]">close</span>
+          </button>
         </div>
 
-        {/* Form */}
+        {/* Form — scrollable area */}
         <form
           ref={formRef}
           onSubmit={handleSubmit}
-          className="flex-1 overflow-y-auto px-8 py-6 space-y-6"
+          className="flex-1 overflow-y-auto px-6 py-5 space-y-5"
         >
           {initial?.id && (
             <input type="hidden" name="id" value={initial.id} />
@@ -122,23 +127,22 @@ export function RewardForm({ initial, onSubmit, onClose }: Props) {
           </div>
         </form>
 
-        {/* Actions — sticky at bottom with padding for mobile bottom nav */}
-        <div className="px-8 py-6 pb-safe border-t border-[#4d4637]/10 pb-10 lg:pb-6">
-          <div className="grid grid-cols-2 gap-4">
+        {/* Actions — fixed at bottom of drawer */}
+        <div className="flex-shrink-0 px-6 py-4 pb-28 lg:pb-6 border-t border-[#4d4637]/10 bg-[#0e0e0e]">
+          <div className="grid grid-cols-2 gap-3">
             <button
               type="button"
               onClick={onClose}
               disabled={isPending}
-              className="py-4 rounded-xl bg-[#1c1b1b] text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2] hover:bg-[#353534] transition-colors"
+              className="py-3.5 rounded-xl bg-[#1c1b1b] text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2] hover:bg-[#353534] transition-colors"
             >
               Descartar
             </button>
             <button
-              type="submit"
-              form=""
+              type="button"
               onClick={() => formRef.current?.requestSubmit()}
               disabled={isPending}
-              className="py-4 rounded-xl bg-[#e6c364] text-[#3d2e00] text-[10px] font-bold uppercase tracking-widest hover:bg-[#c9a84c] transition-colors disabled:opacity-60"
+              className="py-3.5 rounded-xl bg-[#e6c364] text-[#3d2e00] text-[10px] font-bold uppercase tracking-widest hover:bg-[#c9a84c] transition-colors disabled:opacity-60 btn-press"
             >
               {isPending ? "Guardando..." : "Guardar"}
             </button>
