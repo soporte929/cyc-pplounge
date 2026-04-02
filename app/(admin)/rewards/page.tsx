@@ -31,7 +31,8 @@ async function updateReward(formData: FormData) {
   const name = formData.get("name") as string;
   const description = (formData.get("description") as string) || null;
   const stamps_required = parseInt(formData.get("stamps_required") as string, 10);
-  const image_url = (formData.get("image_url") as string) || null;
+  const image_url_raw = formData.get("image_url") as string;
+  const image_url = image_url_raw && image_url_raw.trim() !== "" ? image_url_raw.trim() : null;
 
   await supabase
     .from("rewards")
