@@ -1,0 +1,3 @@
+# Ephemeral session files
+.tdd-session
+context-session.json
