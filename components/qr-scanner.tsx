@@ -1,14 +1,13 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 
 interface QRScannerProps {
   onScan: (uuid: string) => void;
   onError?: (error: string) => void;
 }
 
-// UUID v4 pattern
 const UUID_REGEX =
-  /[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/i;
+  /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i;
 
 function extractUUID(text: string): string | null {
   const match = text.match(UUID_REGEX);
@@ -18,7 +17,14 @@ function extractUUID(text: string): string | null {
 export default function QRScanner({ onScan, onError }: QRScannerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const scannerRef = useRef<import("qr-scanner").default | null>(null);
+  const onScanRef = useRef(onScan);
+  const onErrorRef = useRef(onError);
   const [cameraError, setCameraError] = useState<{ message: string; icon: string } | null>(null);
+  const hasScanned = useRef(false);
+
+  // Keep refs up to date without re-triggering effect
+  onScanRef.current = onScan;
+  onErrorRef.current = onError;
 
   useEffect(() => {
     let cancelled = false;
@@ -34,12 +40,12 @@ export default function QRScanner({ onScan, onError }: QRScannerProps) {
         const scanner = new QrScanner(
           videoRef.current,
           (result) => {
+            if (hasScanned.current) return;
             const text = result.data;
             const uuid = extractUUID(text);
             if (uuid) {
-              onScan(uuid);
-            } else {
-              onError?.("QR code does not contain a valid ID.");
+              hasScanned.current = true;
+              onScanRef.current(uuid);
             }
           },
           {
@@ -50,7 +56,6 @@ export default function QRScanner({ onScan, onError }: QRScannerProps) {
         );
 
         scannerRef.current = scanner;
-
         await scanner.start();
       } catch (err) {
         if (cancelled) return;
@@ -69,15 +74,15 @@ export default function QRScanner({ onScan, onError }: QRScannerProps) {
           window.location.hostname !== "localhost";
 
         const userMessage = isInsecure
-          ? "Camera requires a secure connection (HTTPS). Open this page over HTTPS to use the scanner."
+          ? "La cámara requiere conexión segura (HTTPS)."
           : isPermission
-            ? "Camera access was denied. Please allow camera permission in your browser settings and try again."
-            : "Unable to start the camera. Make sure no other app is using it and that camera access is allowed.";
+            ? "Acceso a la cámara denegado. Permite el acceso en los ajustes del navegador."
+            : "No se pudo iniciar la cámara. Asegúrate de que ninguna otra app la esté usando.";
 
         const icon = isInsecure ? "lock_open" : "no_photography";
 
         setCameraError({ message: userMessage, icon });
-        onError?.(userMessage);
+        onErrorRef.current?.(userMessage);
       }
     }
 
@@ -88,7 +93,17 @@ export default function QRScanner({ onScan, onError }: QRScannerProps) {
       scannerRef.current?.destroy();
       scannerRef.current = null;
     };
-  }, [onScan, onError]);
+  }, []); // No dependencies — refs handle callback updates
+
+  // Reset scan lock when parent resets (e.g. "Next Customer")
+  const resetScan = useCallback(() => {
+    hasScanned.current = false;
+  }, []);
+
+  // Expose reset via effect when onScan changes (parent re-mounted)
+  useEffect(() => {
+    hasScanned.current = false;
+  }, [onScan]);
 
   if (cameraError) {
     return (
@@ -108,7 +123,6 @@ export default function QRScanner({ onScan, onError }: QRScannerProps) {
 
   return (
     <div className="relative w-full aspect-square bg-[#1c1b1b] rounded-[2rem] overflow-hidden">
-      {/* Camera feed */}
       <video
         ref={videoRef}
         className="absolute inset-0 w-full h-full object-cover"
@@ -116,7 +130,7 @@ export default function QRScanner({ onScan, onError }: QRScannerProps) {
         playsInline
       />
 
-      {/* Dark vignette overlay */}
+      {/* Dark vignette */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -125,64 +139,24 @@ export default function QRScanner({ onScan, onError }: QRScannerProps) {
         }}
       />
 
-      {/* Top-left corner bracket */}
-      <div
-        className="absolute top-8 left-8 w-10 h-10 pointer-events-none"
-        style={{
-          borderTop: "4px solid #e6c364",
-          borderLeft: "4px solid #e6c364",
-          borderRadius: "4px 0 0 0",
-        }}
-      />
-
-      {/* Top-right corner bracket */}
-      <div
-        className="absolute top-8 right-8 w-10 h-10 pointer-events-none"
-        style={{
-          borderTop: "4px solid #e6c364",
-          borderRight: "4px solid #e6c364",
-          borderRadius: "0 4px 0 0",
-        }}
-      />
-
-      {/* Bottom-left corner bracket */}
-      <div
-        className="absolute bottom-8 left-8 w-10 h-10 pointer-events-none"
-        style={{
-          borderBottom: "4px solid #e6c364",
-          borderLeft: "4px solid #e6c364",
-          borderRadius: "0 0 0 4px",
-        }}
-      />
-
-      {/* Bottom-right corner bracket */}
-      <div
-        className="absolute bottom-8 right-8 w-10 h-10 pointer-events-none"
-        style={{
-          borderBottom: "4px solid #e6c364",
-          borderRight: "4px solid #e6c364",
-          borderRadius: "0 0 4px 0",
-        }}
-      />
+      {/* Corner brackets */}
+      <div className="absolute top-8 left-8 w-10 h-10 pointer-events-none"
+        style={{ borderTop: "4px solid #e6c364", borderLeft: "4px solid #e6c364", borderRadius: "4px 0 0 0" }} />
+      <div className="absolute top-8 right-8 w-10 h-10 pointer-events-none"
+        style={{ borderTop: "4px solid #e6c364", borderRight: "4px solid #e6c364", borderRadius: "0 4px 0 0" }} />
+      <div className="absolute bottom-8 left-8 w-10 h-10 pointer-events-none"
+        style={{ borderBottom: "4px solid #e6c364", borderLeft: "4px solid #e6c364", borderRadius: "0 0 0 4px" }} />
+      <div className="absolute bottom-8 right-8 w-10 h-10 pointer-events-none"
+        style={{ borderBottom: "4px solid #e6c364", borderRight: "4px solid #e6c364", borderRadius: "0 0 4px 0" }} />
 
       {/* Center indicator */}
       <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 pointer-events-none">
-        {/* Scanning icon */}
-        <span
-          className="material-symbols-outlined text-3xl text-[#e6c364]/80"
-          aria-hidden="true"
-        >
+        <span className="material-symbols-outlined text-3xl text-[#e6c364]/80" aria-hidden="true">
           qr_code_scanner
         </span>
-
-        {/* Animated pulse bar */}
         <div className="w-24 h-0.5 rounded-full overflow-hidden bg-[#e6c364]/20">
-          <div
-            className="h-full bg-[#e6c364] rounded-full animate-pulse"
-            style={{
-              animation: "scan-pulse 1.8s ease-in-out infinite",
-            }}
-          />
+          <div className="h-full bg-[#e6c364] rounded-full"
+            style={{ animation: "scan-pulse 1.8s ease-in-out infinite" }} />
         </div>
       </div>
 

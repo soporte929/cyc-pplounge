@@ -6,6 +6,7 @@
 
 import { useState, useTransition, useEffect } from "react";
 import Link from "next/link";
+import { StaffNav } from "@/components/staff-nav";
 import { getCardInfo } from "../../scan/actions";
 import { redeemReward } from "./actions";
 
@@ -114,6 +115,7 @@ export default function RedeemPage({ params }: PageProps) {
             )}
         </div>
       </main>
+      <StaffNav />
     </div>
   );
 }

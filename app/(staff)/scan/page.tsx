@@ -3,6 +3,7 @@
 import { useCallback, useState, useTransition } from "react";
 import Link from "next/link";
 import QRScanner from "@/components/qr-scanner";
+import { StaffNav } from "@/components/staff-nav";
 import { addStamp, getCardInfo } from "./actions";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -390,62 +391,7 @@ export default function ScanPage() {
       </main>
 
       {/* ── Bottom nav ── */}
-      <nav
-        aria-label="Staff navigation"
-        className="fixed bottom-0 inset-x-0 z-50 bg-[#131313]/80 backdrop-blur-xl border-t border-white/5 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]"
-      >
-        <div className="flex items-stretch justify-around h-16 max-w-md mx-auto">
-          {/* Wallet */}
-          <Link
-            href="/wallet"
-            className="flex flex-col items-center justify-center gap-0.5 px-4 text-[#d0c5b2] opacity-60 hover:opacity-80 transition-opacity"
-          >
-            <span className="material-symbols-outlined text-xl" aria-hidden="true">
-              account_balance_wallet
-            </span>
-            <span className="text-[10px] uppercase tracking-widest">Wallet</span>
-          </Link>
-
-          {/* Rewards */}
-          <Link
-            href="/rewards"
-            className="flex flex-col items-center justify-center gap-0.5 px-4 text-[#d0c5b2] opacity-60 hover:opacity-80 transition-opacity"
-          >
-            <span className="material-symbols-outlined text-xl" aria-hidden="true">
-              card_giftcard
-            </span>
-            <span className="text-[10px] uppercase tracking-widest">Rewards</span>
-          </Link>
-
-          {/* Scan — active */}
-          <div
-            aria-current="page"
-            className="flex flex-col items-center justify-center gap-0.5 px-4 text-[#e6c364] scale-110"
-          >
-            <span
-              className="material-symbols-outlined text-xl"
-              aria-hidden="true"
-              style={{ fontVariationSettings: "'FILL' 1" }}
-            >
-              qr_code_scanner
-            </span>
-            <span className="text-[10px] uppercase tracking-widest font-bold">
-              Scan
-            </span>
-          </div>
-
-          {/* Insights */}
-          <Link
-            href="/insights"
-            className="flex flex-col items-center justify-center gap-0.5 px-4 text-[#d0c5b2] opacity-60 hover:opacity-80 transition-opacity"
-          >
-            <span className="material-symbols-outlined text-xl" aria-hidden="true">
-              insights
-            </span>
-            <span className="text-[10px] uppercase tracking-widest">Insights</span>
-          </Link>
-        </div>
-      </nav>
+      <StaffNav />
     </div>
   );
 }
