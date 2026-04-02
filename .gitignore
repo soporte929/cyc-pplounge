@@ -37,5 +37,6 @@ next-env.d.ts
 # supabase
 supabase/.temp/
 yggdrasil-cli/
-.DS_Store
-yggdrasil-cli/
+
+# lockfile (generated with npm 11 locally, incompatible with Vercel npm 10)
+package-lock.json
