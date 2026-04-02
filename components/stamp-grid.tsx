@@ -9,7 +9,7 @@ export function StampGrid({ stampsCurrent, stampsRequired }: StampGridProps) {
 
   return (
     <div className="space-y-3">
-      <div className="grid grid-cols-5 gap-4">
+      <div className="grid grid-cols-5 gap-4 stagger-children">
         {Array.from({ length: stampsRequired }, (_, i) => {
           const isFilled = i < filledCount;
           const isLastEmpty = !isFilled && i === stampsRequired - 1;
@@ -18,7 +18,8 @@ export function StampGrid({ stampsCurrent, stampsRequired }: StampGridProps) {
             return (
               <div
                 key={i}
-                className="aspect-square rounded-full bg-primary flex items-center justify-center shadow-[0_0_15px_rgba(230,195,100,0.3)]"
+                className="aspect-square rounded-full bg-primary flex items-center justify-center shadow-[0_0_15px_rgba(230,195,100,0.3)] animate-stamp-fill animate-glow-pulse"
+                style={{ animationDelay: `${i * 80}ms` }}
               >
                 <span
                   className="material-symbols-outlined text-on-primary text-lg leading-none"
@@ -54,7 +55,7 @@ export function StampGrid({ stampsCurrent, stampsRequired }: StampGridProps) {
 
       {extraStamps > 0 && (
         <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary-container/20 border border-primary-container/30">
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary-container/20 border border-primary-container/30 animate-bounce-in">
             <span
               className="material-symbols-outlined text-primary-container text-sm leading-none"
               style={{ fontVariationSettings: "'FILL' 1" }}

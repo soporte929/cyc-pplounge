@@ -114,7 +114,7 @@ function StatusConfirming({
     .toUpperCase();
 
   return (
-    <div className="flex flex-col items-center gap-5 text-center">
+    <div className="flex flex-col items-center gap-5 text-center animate-fade-in-up">
       {/* Avatar */}
       <div className="w-14 h-14 rounded-full bg-[#353534] border border-[#e6c364]/20 flex items-center justify-center">
         <span className="text-lg font-bold text-[#e6c364] font-headline">
@@ -147,7 +147,7 @@ function StatusConfirming({
       <button
         onClick={onConfirm}
         disabled={isPending}
-        className="w-full bg-[#e6c364] text-[#3d2e00] font-headline font-bold uppercase tracking-widest py-4 rounded-md transition-opacity disabled:opacity-60 hover:opacity-90 active:scale-[0.98]"
+        className="w-full bg-[#e6c364] text-[#3d2e00] font-headline font-bold uppercase tracking-widest py-4 rounded-md transition-opacity disabled:opacity-60 hover:opacity-90 active:scale-[0.98] btn-press"
       >
         {isPending ? "Añadiendo sello…" : "Añadir sello"}
       </button>
@@ -169,11 +169,11 @@ function StatusSuccess({
   onNext: () => void;
 }) {
   return (
-    <div className="flex flex-col items-center gap-5 text-center">
+    <div className="flex flex-col items-center gap-5 text-center animate-scale-in">
       {/* Checkmark */}
       <div className="w-14 h-14 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center">
         <span
-          className="material-symbols-outlined text-3xl text-green-400"
+          className="material-symbols-outlined text-3xl text-green-400 animate-bounce-in"
           aria-hidden="true"
           style={{ fontVariationSettings: "'FILL' 1" }}
         >
@@ -194,7 +194,8 @@ function StatusSuccess({
       {rewardUnlocked && (
         <Link
           href={`/redeem/${cardId}`}
-          className="w-full flex items-center justify-between gap-3 bg-[#e6c364]/10 border border-[#e6c364]/30 rounded-xl px-5 py-4 hover:bg-[#e6c364]/15 transition-colors"
+          className="w-full flex items-center justify-between gap-3 bg-[#e6c364]/10 border border-[#e6c364]/30 rounded-xl px-5 py-4 hover:bg-[#e6c364]/15 transition-colors animate-bounce-in"
+          style={{ animationDelay: "150ms" }}
         >
           <div className="flex items-center gap-3">
             <span
@@ -225,7 +226,7 @@ function StatusSuccess({
       {/* Next customer */}
       <button
         onClick={onNext}
-        className="w-full border border-[#99907e]/30 text-[#d0c5b2] font-headline font-bold uppercase tracking-widest py-4 rounded-md hover:bg-white/5 active:scale-[0.98] transition-all"
+        className="w-full border border-[#99907e]/30 text-[#d0c5b2] font-headline font-bold uppercase tracking-widest py-4 rounded-md hover:bg-white/5 active:scale-[0.98] transition-all btn-press"
       >
         Siguiente cliente
       </button>
@@ -241,7 +242,7 @@ function StatusError({
   onRetry: () => void;
 }) {
   return (
-    <div className="flex flex-col items-center gap-4 text-center">
+    <div className="flex flex-col items-center gap-4 text-center animate-fade-in">
       <div className="w-full bg-[#ffb4ab]/5 border border-[#ffb4ab]/20 rounded-xl px-5 py-4 flex flex-col items-center gap-3">
         <span
           className="material-symbols-outlined text-3xl text-[#ffb4ab]"
@@ -253,7 +254,7 @@ function StatusError({
       </div>
       <button
         onClick={onRetry}
-        className="w-full border border-[#99907e]/30 text-[#d0c5b2] font-headline font-bold uppercase tracking-widest py-4 rounded-md hover:bg-white/5 active:scale-[0.98] transition-all"
+        className="w-full border border-[#99907e]/30 text-[#d0c5b2] font-headline font-bold uppercase tracking-widest py-4 rounded-md hover:bg-white/5 active:scale-[0.98] transition-all btn-press"
       >
         Reintentar
       </button>
@@ -338,7 +339,7 @@ export default function ScanPage() {
           <span className="text-[10px] uppercase tracking-widest text-[#d0c5b2] font-medium">
             Personal
           </span>
-          <span className="font-headline font-black uppercase tracking-widest text-[#e6c364] leading-none">
+          <span className="font-headline font-black uppercase tracking-widest text-[#e6c364] leading-none animate-logo-breathe">
             PHI PHI LOUNGE
           </span>
         </div>

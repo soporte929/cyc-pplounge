@@ -34,7 +34,7 @@ export default function LoginPage() {
     <div className="min-h-screen bg-[#0a0a0a] flex flex-col">
       {/* Header */}
       <header className="fixed top-0 w-full flex justify-center items-center px-6 h-16 bg-[#0e0e0e] border-b border-[#e6c364]/10 shadow-[0_4px_40px_rgba(230,195,100,0.04)] z-50">
-        <span className="text-[#e6c364] font-black tracking-widest text-lg uppercase font-headline">
+        <span className="text-[#e6c364] font-black tracking-widest text-lg uppercase font-headline animate-logo-breathe">
           PHI PHI LOUNGE
         </span>
       </header>

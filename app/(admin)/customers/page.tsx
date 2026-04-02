@@ -97,7 +97,7 @@ export default async function CustomersPage({
   return (
     <div className="max-w-6xl mx-auto space-y-8">
       {/* Header */}
-      <div className="flex items-end justify-between">
+      <div className="flex items-end justify-between animate-fade-in-up">
         <div>
           <h1 className="text-4xl font-headline font-extrabold uppercase tracking-tighter text-[#e5e2e1]">
             Clientes
@@ -109,7 +109,7 @@ export default async function CustomersPage({
       </div>
 
       {/* Table */}
-      <div className="bg-[#1a1a1a] rounded-2xl overflow-hidden border border-white/[0.03]">
+      <div className="bg-[#1a1a1a] rounded-2xl overflow-hidden border border-white/[0.03] animate-fade-in-up">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
@@ -228,7 +228,7 @@ export default async function CustomersPage({
                           />
                           <button
                             type="submit"
-                            className={`text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-lg transition-colors ${
+                            className={`text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-lg transition-colors btn-press ${
                               card.is_active
                                 ? "text-red-400 hover:bg-red-500/10"
                                 : "text-[#e6c364] hover:bg-[#e6c364]/10"

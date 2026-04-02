@@ -49,11 +49,11 @@ export function RewardsClient({
       </button>
 
       {/* Bento grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 stagger-children">
         {rewards.map((reward, i) => (
           <div
             key={reward.id}
-            className={`relative bg-[#1c1b1b] rounded-xl p-6 border transition-all duration-300 ${
+            className={`relative bg-[#1c1b1b] rounded-xl p-6 border transition-all duration-300 hover-glow ${
               reward.is_active
                 ? "border-white/5 hover:border-[#e6c364]/20"
                 : "border-white/5 hover:border-[#e6c364]/20 opacity-60 grayscale hover:grayscale-0 hover:opacity-100"
@@ -80,12 +80,12 @@ export function RewardsClient({
                 className="flex items-center"
               >
                 <div
-                  className={`w-8 h-4 rounded-full flex items-center transition-colors ${
+                  className={`w-8 h-4 rounded-full flex items-center transition-all duration-200 ${
                     reward.is_active ? "bg-[#e6c364]" : "bg-[#353534]"
                   }`}
                 >
                   <div
-                    className={`w-3 h-3 rounded-full bg-white shadow-sm transition-transform mx-0.5 ${
+                    className={`w-3 h-3 rounded-full bg-white shadow-sm transition-all duration-200 mx-0.5 ${
                       reward.is_active ? "translate-x-4" : "translate-x-0"
                     }`}
                   />
@@ -126,7 +126,7 @@ export function RewardsClient({
         {/* Add new placeholder card */}
         <button
           onClick={() => setShowCreate(true)}
-          className="flex flex-col items-center justify-center gap-3 bg-[#1c1b1b] rounded-xl p-6 border border-dashed border-[#4d4637]/40 hover:border-[#e6c364]/30 hover:bg-[#e6c364]/[0.02] transition-all min-h-[180px] group"
+          className="flex flex-col items-center justify-center gap-3 bg-[#1c1b1b] rounded-xl p-6 border border-dashed border-[#4d4637]/40 hover:border-[#e6c364]/30 hover:bg-[#e6c364]/[0.02] transition-all min-h-[180px] group hover-glow"
         >
           <div className="w-10 h-10 rounded-full bg-[#353534] flex items-center justify-center group-hover:bg-[#e6c364]/10 transition-colors">
             <span className="material-symbols-outlined text-[#d0c5b2] group-hover:text-[#e6c364] transition-colors text-xl leading-none">

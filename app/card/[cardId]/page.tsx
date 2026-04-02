@@ -117,7 +117,7 @@ export default async function CardPage({ params }: CardPageProps) {
 function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 h-16 bg-[#0e0e0e] border-b border-[#e6c364]/10 shadow-[0_4px_40px_rgba(230,195,100,0.04)] flex items-center justify-center">
-      <span className="font-headline font-black text-[#e6c364] uppercase tracking-widest text-sm">
+      <span className="font-headline font-black text-[#e6c364] uppercase tracking-widest text-sm animate-logo-breathe">
         PHI PHI LOUNGE
       </span>
     </header>

@@ -46,7 +46,7 @@ export default function RedeemPage({ params }: PageProps) {
       <Header />
 
       <main className="flex-1 flex flex-col items-center px-6 pt-24 pb-12">
-        <div className="w-full max-w-md">
+        <div className="w-full max-w-md animate-fade-in-up">
           {/* Page title */}
           <div className="mb-8">
             <p className="text-[10px] uppercase tracking-widest text-[#d0c5b2] mb-1">
@@ -135,7 +135,7 @@ function Header() {
         </span>
         <span className="text-[10px] uppercase tracking-widest">Escanear</span>
       </Link>
-      <span className="font-headline font-black text-[#e6c364] uppercase tracking-widest text-sm absolute left-1/2 -translate-x-1/2">
+      <span className="font-headline font-black text-[#e6c364] uppercase tracking-widest text-sm absolute left-1/2 -translate-x-1/2 animate-logo-breathe">
         PHI PHI LOUNGE
       </span>
       <div className="ml-auto flex items-center gap-1.5 text-[#d0c5b2]">
@@ -288,7 +288,7 @@ function RedeemConfirmation({
         <div className="bg-[#0a1f0a] border border-green-500/20 rounded-2xl p-8 flex flex-col items-center text-center gap-5">
           <div className="w-20 h-20 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center">
             <span
-              className="material-symbols-outlined text-green-400 text-5xl"
+              className="material-symbols-outlined text-green-400 text-5xl animate-bounce-in"
               style={{ fontVariationSettings: "'FILL' 1" }}
             >
               check_circle
@@ -312,7 +312,7 @@ function RedeemConfirmation({
 
         <Link
           href="/scan"
-          className="flex items-center justify-center gap-2 w-full bg-[#1c1b1b] border border-[#4d4637]/20 text-[#e6c364] font-headline font-bold uppercase tracking-widest py-4 rounded-md hover:bg-[#353534] active:scale-[0.98] transition-all duration-200 text-sm"
+          className="flex items-center justify-center gap-2 w-full bg-[#1c1b1b] border border-[#4d4637]/20 text-[#e6c364] font-headline font-bold uppercase tracking-widest py-4 rounded-md hover:bg-[#353534] active:scale-[0.98] transition-all duration-200 text-sm btn-press"
         >
           <span className="material-symbols-outlined text-base">qr_code_scanner</span>
           Volver al escáner
@@ -335,7 +335,7 @@ function RedeemConfirmation({
     const message = errorMessages[result.error] ?? "Error desconocido. Intenta de nuevo.";
 
     return (
-      <div className="space-y-6">
+      <div className="space-y-6 animate-fade-in">
         <div className="bg-[#93000a]/10 border border-[#ffb4ab]/15 rounded-2xl p-8 flex flex-col items-center text-center gap-5">
           <div className="w-20 h-20 rounded-full bg-[#ffb4ab]/10 flex items-center justify-center">
             <span
@@ -355,7 +355,7 @@ function RedeemConfirmation({
 
         <button
           onClick={() => setResult(null)}
-          className="w-full bg-[#e6c364] text-[#3d2e00] font-headline font-bold uppercase tracking-widest py-5 rounded-md hover:brightness-110 active:scale-[0.98] transition-all duration-200 text-sm"
+          className="w-full bg-[#e6c364] text-[#3d2e00] font-headline font-bold uppercase tracking-widest py-5 rounded-md hover:brightness-110 active:scale-[0.98] transition-all duration-200 text-sm btn-press"
         >
           Intentar de nuevo
         </button>
@@ -434,7 +434,7 @@ function RedeemConfirmation({
         <button
           onClick={handleRedeem}
           disabled={isPending}
-          className="w-full bg-[#e6c364] text-[#3d2e00] font-headline font-bold uppercase tracking-widest py-5 rounded-md hover:brightness-110 active:scale-[0.98] transition-all duration-200 text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          className="w-full bg-[#e6c364] text-[#3d2e00] font-headline font-bold uppercase tracking-widest py-5 rounded-md hover:brightness-110 active:scale-[0.98] transition-all duration-200 text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 btn-press"
         >
           {isPending ? (
             <>

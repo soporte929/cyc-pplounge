@@ -28,7 +28,7 @@ export function StaffNav() {
             }`}
           >
             <span
-              className="material-symbols-outlined text-xl"
+              className={`material-symbols-outlined text-xl transition-transform duration-200 ${isActive ? "scale-110" : ""}`}
               style={isActive ? { fontVariationSettings: "'FILL' 1" } : undefined}
             >
               {item.icon}
@@ -36,6 +36,9 @@ export function StaffNav() {
             <span className="font-body font-medium text-[10px] uppercase tracking-widest mt-1">
               {item.label}
             </span>
+            {isActive && (
+              <div className="w-1 h-1 rounded-full bg-[#e6c364] mt-1 animate-dot-pulse" />
+            )}
           </Link>
         );
       })}

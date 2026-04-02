@@ -18,7 +18,7 @@ export function AdminSidebar({ staffName }: { staffName: string }) {
     <aside className="hidden lg:flex fixed left-0 top-0 h-full w-72 bg-[#0e0e0e] flex-col py-8 z-50 border-r border-[#4d4637]/10">
       {/* Brand */}
       <div className="px-8 mb-12">
-        <span className="text-[#e6c364] font-headline font-black tracking-widest text-xl uppercase">
+        <span className="text-[#e6c364] font-headline font-black tracking-widest text-xl uppercase animate-logo-breathe">
           PHI PHI LOUNGE
         </span>
         <p className="text-[10px] text-[#d0c5b2] tracking-[0.2em] mt-1 font-bold uppercase opacity-60">

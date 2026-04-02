@@ -45,7 +45,7 @@ export default function RegisterPage() {
     <div className="dark min-h-screen bg-[#131313] text-[#e5e2e1]">
       {/* Top App Bar */}
       <header className="fixed top-0 left-0 right-0 z-50 h-16 bg-[#0e0e0e] border-b border-[#e6c364]/10 shadow-[0_4px_40px_rgba(230,195,100,0.04)] flex items-center justify-center">
-        <span className="font-headline font-black text-[#e6c364] uppercase tracking-widest text-sm">
+        <span className="font-headline font-black text-[#e6c364] uppercase tracking-widest text-sm animate-logo-breathe">
           PHI PHI LOUNGE
         </span>
       </header>
@@ -55,7 +55,7 @@ export default function RegisterPage() {
         <div className="w-full max-w-md py-12">
           {/* Logo area */}
           <div className="flex flex-col items-center mb-8">
-            <div className="w-16 h-16 bg-[#1c1b1b] rounded-xl flex items-center justify-center mb-6">
+            <div className="w-16 h-16 bg-[#1c1b1b] rounded-xl flex items-center justify-center mb-6 animate-scale-in">
               <span
                 className="material-symbols-outlined text-[#e6c364] text-3xl"
                 style={{ fontVariationSettings: "'FILL' 1" }}
@@ -65,12 +65,12 @@ export default function RegisterPage() {
             </div>
 
             {/* Headline */}
-            <h1 className="font-headline font-extrabold text-4xl tracking-tighter uppercase text-center leading-none mb-3">
+            <h1 className="font-headline font-extrabold text-4xl tracking-tighter uppercase text-center leading-none mb-3 animate-fade-in-up">
               ÚNETE AL<br />CLUB
             </h1>
 
             {/* Subline */}
-            <p className="text-[#e6c364] text-xs uppercase tracking-widest">
+            <p className="text-[#e6c364] text-xs uppercase tracking-widest animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
               10 shishas → 1 gratis
             </p>
           </div>
@@ -78,7 +78,7 @@ export default function RegisterPage() {
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-5" noValidate>
             {/* Name field */}
-            <div className="space-y-2">
+            <div className="space-y-2 animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
               <label
                 htmlFor="name"
                 className="block text-[10px] uppercase tracking-widest text-[#d0c5b2]"
@@ -101,7 +101,7 @@ export default function RegisterPage() {
             </div>
 
             {/* Email field */}
-            <div className="space-y-2">
+            <div className="space-y-2 animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
               <label
                 htmlFor="email"
                 className="block text-[10px] uppercase tracking-widest text-[#d0c5b2]"
@@ -124,7 +124,7 @@ export default function RegisterPage() {
             </div>
 
             {/* Marketing consent */}
-            <div className="flex items-start gap-3 pt-1">
+            <div className="flex items-start gap-3 pt-1 animate-fade-in-up" style={{ animationDelay: '0.35s' }}>
               <button
                 type="button"
                 role="checkbox"
@@ -168,14 +168,15 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={isPending}
-              className="w-full bg-[#e6c364] text-[#3d2e00] font-headline font-bold uppercase tracking-widest py-5 rounded-md transition-opacity disabled:opacity-60 mt-2"
+              className="w-full bg-[#e6c364] text-[#3d2e00] font-headline font-bold uppercase tracking-widest py-5 rounded-md transition-opacity disabled:opacity-60 mt-2 btn-press animate-fade-in-up"
+              style={{ animationDelay: '0.45s' }}
             >
               {isPending ? "Un momento…" : "Obtener mi tarjeta"}
             </button>
           </form>
 
           {/* Trust badge */}
-          <div className="flex items-center justify-center gap-2 mt-8">
+          <div className="flex items-center justify-center gap-2 mt-8 animate-fade-in" style={{ animationDelay: '0.6s' }}>
             <span className="material-symbols-outlined text-[#99907e] text-base">
               verified_user
             </span>
