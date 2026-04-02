@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { createServiceClient } from "@/lib/supabase/server";
 import { AdminSidebar } from "./admin-sidebar";
+import { StaffNav } from "@/components/staff-nav";
 
 export default async function AdminLayout({
   children,
@@ -31,9 +32,12 @@ export default async function AdminLayout({
   return (
     <div className="flex h-screen bg-[#0a0a0a]">
       <AdminSidebar staffName={staffRecord.name} />
-      <main className="flex-1 overflow-y-auto p-8 md:p-12 ml-0 lg:ml-72">
+      <main className="flex-1 overflow-y-auto p-8 pb-24 md:p-12 ml-0 lg:ml-72 lg:pb-12">
         {children}
       </main>
+      <div className="lg:hidden">
+        <StaffNav />
+      </div>
     </div>
   );
 }
