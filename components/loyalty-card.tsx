@@ -91,8 +91,8 @@ export function LoyaltyCard({
 
       {/* QR code section */}
       <div className="flex flex-col items-center gap-3 bg-surface-container-lowest rounded-xl p-6">
-        <div className="w-40 h-40">
-          <QRCodeDisplay value={cardId} size={160} />
+        <div className="w-40 h-40 bg-white rounded-lg p-2">
+          <QRCodeDisplay value={cardId} size={144} />
         </div>
         <p className="text-[10px] uppercase tracking-widest text-on-surface-variant">
           Scan at counter

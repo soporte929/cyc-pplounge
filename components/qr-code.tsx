@@ -12,8 +12,8 @@ export function QRCodeDisplay({ value, size = 160 }: QRCodeDisplayProps) {
     <QRCode
       value={value}
       size={size}
-      bgColor="#0e0e0e"
-      fgColor="#e6c364"
+      bgColor="#ffffff"
+      fgColor="#131313"
       style={{ height: "auto", maxWidth: "100%", width: "100%" }}
     />
   );
