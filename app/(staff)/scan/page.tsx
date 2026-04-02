@@ -6,6 +6,23 @@ import QRScanner from "@/components/qr-scanner";
 import { StaffNav } from "@/components/staff-nav";
 import { addStamp, getCardInfo } from "./actions";
 
+// ─── Audio/haptic feedback ────────────────────────────────────────────────────
+
+function playBeep() {
+  try {
+    const ctx = new AudioContext();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.frequency.value = 880;
+    gain.gain.value = 0.3;
+    osc.start();
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+    osc.stop(ctx.currentTime + 0.15);
+  } catch {}
+}
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 type CardInfo = Awaited<ReturnType<typeof getCardInfo>>;
@@ -312,6 +329,10 @@ export default function ScanPage() {
         return;
       }
 
+      playBeep();
+      if (typeof navigator !== "undefined" && navigator.vibrate) {
+        navigator.vibrate(100);
+      }
       setState({ phase: "confirming", card });
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps

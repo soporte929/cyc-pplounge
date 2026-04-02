@@ -12,10 +12,11 @@ async function createReward(formData: FormData) {
   const name = formData.get("name") as string;
   const description = (formData.get("description") as string) || null;
   const stamps_required = parseInt(formData.get("stamps_required") as string, 10);
+  const image_url = (formData.get("image_url") as string) || null;
 
   await supabase
     .from("rewards")
-    .insert({ name, description, stamps_required, is_active: false });
+    .insert({ name, description, stamps_required, image_url, is_active: false });
 
   revalidatePath("/rewards");
 }
@@ -30,10 +31,11 @@ async function updateReward(formData: FormData) {
   const name = formData.get("name") as string;
   const description = (formData.get("description") as string) || null;
   const stamps_required = parseInt(formData.get("stamps_required") as string, 10);
+  const image_url = (formData.get("image_url") as string) || null;
 
   await supabase
     .from("rewards")
-    .update({ name, description, stamps_required })
+    .update({ name, description, stamps_required, image_url })
     .eq("id", id);
 
   revalidatePath("/rewards");
@@ -62,7 +64,7 @@ export default async function RewardsPage() {
 
   const { data: rewards } = await supabase
     .from("rewards")
-    .select("id, name, description, stamps_required, is_active")
+    .select("id, name, description, stamps_required, is_active, image_url")
     .order("created_at", { ascending: true });
 
   return (

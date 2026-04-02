@@ -9,6 +9,7 @@ type Reward = {
   description: string | null;
   stamps_required: number;
   is_active: boolean;
+  image_url: string | null;
 };
 
 type Props = {
@@ -59,12 +60,21 @@ export function RewardsClient({
                 : "border-white/5 hover:border-[#e6c364]/20 opacity-60 grayscale hover:grayscale-0 hover:opacity-100"
             }`}
           >
-            {/* Icon */}
-            <div className="inline-flex items-center justify-center p-3 bg-[#353534] rounded-lg mb-4">
-              <span className="material-symbols-outlined text-[#e6c364] text-2xl leading-none">
-                {getRewardIcon(i)}
-              </span>
-            </div>
+            {/* Icon or thumbnail */}
+            {reward.image_url ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={reward.image_url}
+                alt={reward.name}
+                className="w-12 h-12 rounded-lg object-cover mb-4"
+              />
+            ) : (
+              <div className="inline-flex items-center justify-center p-3 bg-[#353534] rounded-lg mb-4">
+                <span className="material-symbols-outlined text-[#e6c364] text-2xl leading-none">
+                  {getRewardIcon(i)}
+                </span>
+              </div>
+            )}
 
             {/* Active toggle */}
             <form action={toggleRewardActive} className="absolute top-6 right-6">
@@ -155,6 +165,7 @@ export function RewardsClient({
             name: editingReward.name,
             description: editingReward.description ?? "",
             stamps_required: editingReward.stamps_required,
+            image_url: editingReward.image_url ?? "",
           }}
           onSubmit={updateReward}
           onClose={() => setEditingReward(null)}

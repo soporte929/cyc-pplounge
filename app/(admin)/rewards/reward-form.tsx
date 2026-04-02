@@ -7,6 +7,7 @@ type RewardFormData = {
   name: string;
   description: string;
   stamps_required: number;
+  image_url?: string;
 };
 
 type Props = {
@@ -87,6 +88,20 @@ export function RewardForm({ initial, onSubmit, onClose }: Props) {
               defaultValue={initial?.description ?? ""}
               placeholder="Breve descripción del reward..."
               className="w-full bg-[#1c1b1b] border-0 rounded-xl px-5 py-4 text-sm text-[#e5e2e1] placeholder:text-[#d0c5b2]/40 focus:outline-none focus:ring-1 focus:ring-[#e6c364]/40 focus:bg-[#353534] transition-all resize-none"
+            />
+          </div>
+
+          {/* Image URL */}
+          <div className="space-y-2">
+            <label className="text-[10px] uppercase tracking-widest text-[#d0c5b2] font-bold">
+              URL de imagen
+            </label>
+            <input
+              name="image_url"
+              type="text"
+              defaultValue={initial?.image_url ?? ""}
+              placeholder="https://ejemplo.com/imagen.jpg"
+              className="w-full bg-[#1c1b1b] border-0 rounded-xl px-5 py-4 text-sm text-[#e5e2e1] placeholder:text-[#d0c5b2]/40 focus:outline-none focus:ring-1 focus:ring-[#e6c364]/40 focus:bg-[#353534] transition-all"
             />
           </div>
 
