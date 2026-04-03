@@ -2,6 +2,8 @@ import { verifyAdmin } from "@/lib/auth/verify-admin";
 import { revalidatePath } from "next/cache";
 import Link from "next/link";
 import { createServiceClient } from "@/lib/supabase/server";
+import { SearchBar } from "@/components/search-bar";
+import { ExportCSV } from "@/components/export-csv";
 
 const PAGE_SIZE = 10;
 
@@ -62,24 +64,34 @@ function formatDate(dateStr: string | null) {
 export default async function CustomersPage({
   searchParams,
 }: {
-  searchParams: Promise<{ page?: string }>;
+  searchParams: Promise<{ page?: string; q?: string }>;
 }) {
   const params = await searchParams;
   const page = Math.max(1, parseInt(params.page ?? "1", 10));
   const offset = (page - 1) * PAGE_SIZE;
+  const searchQuery = params.q as string | undefined;
 
   const supabase = await createServiceClient();
 
-  // Total count
-  const { count } = await supabase
+  // Base query builder (used for both count and data)
+  let countQuery = supabase
     .from("loyalty_cards")
-    .select("id", { count: "exact", head: true });
+    .select("id, customers!inner ( name, email )", { count: "exact", head: true });
+
+  if (searchQuery) {
+    countQuery = countQuery.or(
+      `name.ilike.%${searchQuery}%,email.ilike.%${searchQuery}%`,
+      { referencedTable: "customers" }
+    );
+  }
+
+  const { count } = await countQuery;
 
   const total = count ?? 0;
   const totalPages = Math.ceil(total / PAGE_SIZE);
 
   // Fetch page data: loyalty_cards joined with customers, ordered by last stamp
-  const { data: cards } = await supabase
+  let dataQuery = supabase
     .from("loyalty_cards")
     .select(
       `
@@ -91,8 +103,31 @@ export default async function CustomersPage({
       customers ( id, name, email, created_at )
     `
     )
-    .order("updated_at", { ascending: false })
-    .range(offset, offset + PAGE_SIZE - 1);
+    .order("updated_at", { ascending: false });
+
+  if (searchQuery) {
+    dataQuery = dataQuery.or(
+      `name.ilike.%${searchQuery}%,email.ilike.%${searchQuery}%`,
+      { referencedTable: "customers" }
+    );
+  }
+
+  const { data: cards } = await dataQuery.range(offset, offset + PAGE_SIZE - 1);
+
+  const csvData =
+    cards?.map((card) => {
+      const customer = card.customers as unknown as {
+        name: string;
+        email: string;
+      } | null;
+      return {
+        nombre: customer?.name ?? "",
+        email: customer?.email ?? "",
+        sellos: card.stamps_current,
+        ciclos: card.cycles_completed,
+        estado: card.is_active ? "Activo" : "Inactivo",
+      };
+    }) ?? [];
 
   return (
     <div className="max-w-6xl mx-auto space-y-8">
@@ -106,6 +141,12 @@ export default async function CustomersPage({
             {total.toLocaleString()} registrados en total
           </p>
         </div>
+        <ExportCSV data={csvData} filename="clientes" />
+      </div>
+
+      {/* Search */}
+      <div className="animate-fade-in-up">
+        <SearchBar placeholder="Buscar por nombre o email…" />
       </div>
 
       {/* Table */}
@@ -250,7 +291,7 @@ export default async function CustomersPage({
             <div className="flex items-center gap-2">
               {page > 1 && (
                 <Link
-                  href={`/customers?page=${page - 1}`}
+                  href={`/customers?page=${page - 1}${searchQuery ? `&q=${encodeURIComponent(searchQuery)}` : ""}`}
                   className="px-3 py-1.5 rounded-lg bg-[#1c1b1b] text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2] hover:text-[#e6c364] hover:bg-[#e6c364]/10 transition-colors"
                 >
                   Anterior
@@ -258,7 +299,7 @@ export default async function CustomersPage({
               )}
               {page < totalPages && (
                 <Link
-                  href={`/customers?page=${page + 1}`}
+                  href={`/customers?page=${page + 1}${searchQuery ? `&q=${encodeURIComponent(searchQuery)}` : ""}`}
                   className="px-3 py-1.5 rounded-lg bg-[#1c1b1b] text-[10px] font-bold uppercase tracking-widest text-[#d0c5b2] hover:text-[#e6c364] hover:bg-[#e6c364]/10 transition-colors"
                 >
                   Siguiente

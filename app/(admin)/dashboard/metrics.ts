@@ -1,5 +1,83 @@
 import { createServiceClient } from "@/lib/supabase/server";
 
+export async function getStampsPerDay() {
+  const supabase = await createServiceClient();
+  const days = 7;
+  const result: { date: string; count: number }[] = [];
+
+  for (let i = days - 1; i >= 0; i--) {
+    const date = new Date();
+    date.setDate(date.getDate() - i);
+    const dayStart = new Date(date.getFullYear(), date.getMonth(), date.getDate()).toISOString();
+    const dayEnd = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1).toISOString();
+
+    const { count } = await supabase
+      .from("stamps")
+      .select("id", { count: "exact", head: true })
+      .gte("created_at", dayStart)
+      .lt("created_at", dayEnd);
+
+    result.push({
+      date: date.toLocaleDateString("es-ES", { weekday: "short" }),
+      count: count ?? 0,
+    });
+  }
+  return result;
+}
+
+export interface RecentActivityItem {
+  type: "stamp" | "redemption";
+  name: string;
+  detail: string;
+  time: string;
+}
+
+export async function getRecentActivity(): Promise<RecentActivityItem[]> {
+  const supabase = await createServiceClient();
+
+  const { data: stamps } = await supabase
+    .from("stamps")
+    .select("id, created_at, loyalty_cards(customers(name))")
+    .order("created_at", { ascending: false })
+    .limit(10);
+
+  const { data: redemptions } = await supabase
+    .from("redemptions")
+    .select("id, redeemed_at, loyalty_cards(customers(name)), rewards(name)")
+    .order("redeemed_at", { ascending: false })
+    .limit(5);
+
+  const stampItems: RecentActivityItem[] = (stamps ?? []).map((s) => {
+    const card = s.loyalty_cards as unknown as { customers: { name: string } | { name: string }[] | null } | null;
+    const customer = Array.isArray(card?.customers) ? card?.customers[0] : card?.customers;
+    return {
+      type: "stamp",
+      name: (customer as { name?: string } | null)?.name ?? "—",
+      detail: "Sello añadido",
+      time: s.created_at ?? "",
+    };
+  });
+
+  const redemptionItems: RecentActivityItem[] = (redemptions ?? []).map((r) => {
+    const card = r.loyalty_cards as unknown as { customers: { name: string } | { name: string }[] | null } | null;
+    const customer = Array.isArray(card?.customers) ? card?.customers[0] : card?.customers;
+    const reward = Array.isArray(r.rewards) ? r.rewards[0] : r.rewards;
+    const rewardName = (reward as { name?: string } | null)?.name ?? "Reward";
+    return {
+      type: "redemption",
+      name: (customer as { name?: string } | null)?.name ?? "—",
+      detail: `Reward canjeado: ${rewardName}`,
+      time: r.redeemed_at ?? "",
+    };
+  });
+
+  const merged = [...stampItems, ...redemptionItems].sort(
+    (a, b) => new Date(b.time).getTime() - new Date(a.time).getTime()
+  );
+
+  return merged;
+}
+
 export interface DashboardMetrics {
   totalCustomers: number;
   stampsToday: number;
