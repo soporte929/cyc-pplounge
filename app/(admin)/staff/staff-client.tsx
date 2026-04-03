@@ -51,7 +51,8 @@ export function StaffClient({
       {/* Invite button */}
       <button
         onClick={() => setShowInvite(true)}
-        className="inline-flex items-center gap-2 px-5 py-3 bg-[#e6c364] text-[#3d2e00] rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-[#c9a84c] transition-colors"
+        className="inline-flex items-center gap-2 px-5 py-3 bg-[#e6c364] text-[#3d2e00] rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-[#c9a84c] transition-colors btn-press animate-fade-in-up"
+        style={{ animationDelay: "100ms" }}
       >
         <span className="material-symbols-outlined text-base leading-none">
           person_add
@@ -60,7 +61,7 @@ export function StaffClient({
       </button>
 
       {/* Table */}
-      <div className="bg-[#1a1a1a] rounded-2xl overflow-hidden border border-white/[0.03]">
+      <div className="bg-[#1a1a1a] rounded-2xl overflow-hidden border border-white/[0.03] hover-glow animate-fade-in-up" style={{ animationDelay: "200ms" }}>
         <div className="overflow-x-auto">
           <table className="w-full min-w-[480px]">
             <thead>
@@ -82,7 +83,7 @@ export function StaffClient({
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#4d4637]/5">
+            <tbody className="divide-y divide-[#4d4637]/5 stagger-children">
               {staff.length === 0 ? (
                 <tr>
                   <td
@@ -154,11 +155,13 @@ export function StaffClient({
                       {/* Status badge */}
                       <td className="px-6 py-4 text-center">
                         {member.is_active ? (
-                          <span className="inline-flex items-center px-2 py-1 rounded-md bg-green-500/10 text-green-400 text-[10px] font-bold uppercase tracking-widest">
+                          <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md bg-green-500/10 text-green-400 text-[10px] font-bold uppercase tracking-widest">
+                            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-dot-pulse" />
                             Activo
                           </span>
                         ) : (
-                          <span className="inline-flex items-center px-2 py-1 rounded-md bg-[#353534] text-[#d0c5b2] text-[10px] font-bold uppercase tracking-widest">
+                          <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md bg-[#353534] text-[#d0c5b2] text-[10px] font-bold uppercase tracking-widest">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#d0c5b2]/40" />
                             Inactivo
                           </span>
                         )}
@@ -183,7 +186,7 @@ export function StaffClient({
                             />
                             <button
                               type="submit"
-                              className={`text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-lg transition-colors ${
+                              className={`text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-lg transition-colors btn-press ${
                                 member.is_active
                                   ? "text-red-400 hover:bg-red-500/10"
                                   : "text-[#e6c364] hover:bg-[#e6c364]/10"

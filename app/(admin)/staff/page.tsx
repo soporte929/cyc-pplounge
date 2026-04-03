@@ -95,7 +95,7 @@ export default async function StaffPage() {
   return (
     <div className="max-w-6xl mx-auto space-y-8">
       {/* Header */}
-      <div className="flex items-end justify-between">
+      <div className="flex items-end justify-between animate-fade-in-up">
         <div>
           <h1 className="text-4xl font-headline font-extrabold uppercase tracking-tighter text-[#e5e2e1]">
             Gestión Staff

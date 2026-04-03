@@ -30,7 +30,7 @@ export function InviteStaffForm({ onSubmit, onClose }: Props) {
       />
 
       {/* Drawer — full-screen on mobile, side panel on lg+ */}
-      <div className="relative z-10 w-full lg:max-w-lg h-full bg-[#0e0e0e] lg:border-l border-[#e6c364]/10 flex flex-col overflow-hidden">
+      <div className="relative z-10 w-full lg:max-w-lg h-full bg-[#0e0e0e] lg:border-l border-[#e6c364]/10 flex flex-col overflow-hidden" style={{ animation: "slide-in-right 0.3s ease-out" }}>
         {/* Header */}
         <div className="flex-shrink-0 px-6 py-4 border-b border-[#4d4637]/10 flex items-center justify-between">
           <div>
